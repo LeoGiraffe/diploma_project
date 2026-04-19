@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --color-primary: #2f57ef;
+    --primary-opacity: #2f57ef11;
+    --color-secondary: #b966e7;
+    --color-voilet: #800080;
+    --bg-color: #f9f9ff;
+    --color-pink: #db709322;
+    --pink-opacity: #db70932222;
+    --box-shadow: 0 0 10px rgb(0 0 0/15%);
+    --main-color: #8e44ad;
+    --red: #ed176f;
+    --coral: #f7817f;
+    --gradient: linear-gradient(90deg, var(--color-secondary), var(--color-pink));
+    --gradient2: linear-gradient(to right, var(--color-primary), var(--color-secondary), var(--color-secondary), var(--color-primary));
+    --black: #2c3e50 ;
+    --white: #fff;
+    --light-color: #ccc;
+    --light-bg: #eee;
+    --border: .1rem solid rgba(0,0,0,.2);  
+}
+* {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+*::selection {
+    background: var(--main-color);
+    color: #fff;
+}
+*::-webkit-scrollbar {
+    height: .5rem;
+    white-space: .7rem;
+    border-radius: 20px;
+}
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+}
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+body{
+    background-color: var(--bg-color);
+}
+.btn{
+    background-image: var(--gradient2);
+    border-radius: 20px;
+    text-align: center;
+    padding: .5rem;
+    color: var(--white);
+    text-transform: capitalize;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: .8rem 2rem;
+}
+.btn:hover{
+    background-image: var(--gradient);
+}
+
+section{
+    padding: 2rem;
+    max-width: 120px;
+    margin: 0 auto;
+}
+
+.flex-btn{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-self: center;
+}
+.message {
+    position: sticky;
+    top: 0;
+    background-color: var(--light-bg);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.message.form{
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--white);
+    top: 2rem;
+    border-radius: .5rem;
+}
+.message span {
+    font-size: 2rem;
+    color: var(--black);
+}
+.message i{
+font-size: 2.5rem;
+color: var(--red);
+cursor: pointer;
+transition: .2s linear;
+}
+.message i:hover{
+    transform: rotate(90deg);
+}
+.empty {
+    background-color: var(--color-primary-opacity);
+    border-radius: .5rem;
+    padding: 1.5rem;
+    text-align: center;
+    width: 100%;
+    font-size: 2rem;
+    color: var(--color-primary);
+}
+.heading{
+    padding-bottom: 1.8rem;
+    border-bottom: var(--border);
+    font-size: 2.5rem;
+    color: var(--black);
+    text-transform: capitalize;
+    margin-block: 2rem;
+    text-align: center;
+}
+
+/* ------------------header section -----------------*/
+.header {
+    background-color: var(--white);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0px 5px 10px 0px #aaa;
+    
+}
+
+.header .flex {
+     padding: 1rem 2rem;
+    position: revert;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    margin: 0 auto;
+    max-width: 1400px;  /* Максимальная ширина */
+    margin: 0 auto;      /* Центрирование */
+    
+}
+
+
+.header .flex .search_form {
+    width: 50rem;
+    border-radius: .5rem;
+    background-color: var(--primary-opacity);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Остальные стили без изменений... */
+.header .flex .search_form input {
+    width: 100%;
+    background: none;
+    font-size: 2rem;
+    color: var(--color-primary);
+}
+
+.header .flex .search_form button {
+    font-size: 2rem;
+    color: var(--color-primary);
+    cursor: pointer;
+    background: none;
+}
+
+.header .flex .search_form :hover {
+    color: var(--color-secondary);
+}
+
+.header .flex .icons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.header .flex .icons div {
+    font-size: 2rem; /* Было var(--white) - ошибка! */
+    border-radius: .5rem;
+    height: 4.5rem;
+    width: 4.5rem;
+    line-height: 4.4rem;
+    cursor: pointer;
+    background-image: var(--gradient2);
+    text-align: center;
+    margin-left: .5rem;
+    color: var(--white); /* Добавить цвет текста */
+}
+
+.header .flex .icons div:hover { 
+    background-image: var(--gradient);
+}
+#search-btn{
+display: none;
+}
+.header .flex .profile{
+ position: absolute;
+    top: 120%;
+    right: 2rem;
+    background-color: var(--white);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    width: 35rem;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.2);
+    transform: scale(0.7) translateY(-1rem);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-origin: top right;
+}
+.header .flex .profile.active{
+ transform: scale(1) translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+.header .flex .profile img{
+height: 10rem; 
+width: 10rem; 
+border-radius: 50%;
+object-fit: cover;
+padding: .5rem;
+background-image: var(--gradient);
+margin-bottom: .5rem;
+}
+.header .flex .profile h3{
+font-size: 2rem;
+color: var(--black);
+margin-bottom: 2rem;
+}
+.header .flex .profile .flex-btn{
+margin-top: 1.5rem;
+}
+
+
+/* ------------------side bar -----------------*/
+
+.side-bar{
+     position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 30rem;
+    background: linear-gradient(135deg, var(--white) 0%, var(--bg-color) 100%);
+    z-index: 1200;
+    transform: translateX(-100%);
+    box-shadow: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.side-bar.active{
+    transform: translateX(0);
+    box-shadow: 0.5rem 0 2rem rgba(0, 0, 0, 0.15);
+}
+.side-bar .profile {
+    padding: 3rem 2rem;
+}
+.side-bar .profile img{
+height: 10rem;
+width: 10rem;
+border-radius: 50%;
+object-fit: cover;
+margin-bottom: .5rem;
+padding: .5rem;
+background-image: var(--color-secondary);
+}
+.side-bar .profile h3{
+font-size: 2rem;
+color: var(--black);
+text-transform: capitalize;
+margin-bottom: 2rem;
+}
+.side-bar .profile p{
+font-size: 1.6rem;
+color: var(--light-color);
+margin-bottom: 2rem;
+margin-bottom: 2rem;
+}
+.side-bar .profile .flex-btn{
+margin-top: .5rem;
+}
+
+.side-bar .navbar a{
+    display: block;
+    padding: 2rem;
+    margin: .5rem 0;
+    font-size: 1.5rem;
+}
+.side-bar .navbar a i{
+    color: var(--main-color);
+    margin-right: 1.5rem;
+    transition: .2s linear;
+}
+    
+.side-bar .navbar a span{
+   color: var(--light-color);
+   text-transform: capitalize;
+}
+.side-bar .navbar a:hover{
+    background-image: var(--gradient2);
+}
+.side-bar .navbar a:hover span{
+    color: var(--white);
+}
+.side-bar .navbar a:hover i{
+    color: var(--white);
+    margin-right: 2.5rem;
+}
