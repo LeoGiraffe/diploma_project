@@ -280,7 +280,6 @@ background-image: var(--color-secondary);
 .side-bar .profile h3{
 font-size: 2rem;
 color: var(--black);
-text-transform: capitalize;
 margin-bottom: 2rem;
 }
 .side-bar .profile p{
@@ -318,4 +317,34 @@ margin-top: .5rem;
 .side-bar .navbar a:hover i{
     color: var(--white);
     margin-right: 2.5rem;
+}
+/* ------------------media screen-----------------*/
+
+@media (max-width: 768px){
+    #search-btn{
+        display: inline-block;
+    }
+    .header .flex .search_form{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: linear-gradient(135deg, var(--white) 0%, var(--bg-color) 100%);
+    border-top: var(--border);
+    border-bottom: var(--border);
+    padding: 1.5rem 2rem;
+    display: flex;
+    gap: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    }
+    .header .flex .search_form.active{
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    }
 }
