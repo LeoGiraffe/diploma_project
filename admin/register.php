@@ -1,7 +1,52 @@
 <?php 
 include '../components/connect.php'; 
-?>
 
+if(isset($_POST['submit'])){
+    $id = unique_id();
+    $name = $_POST['name'];
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+
+    $profession = $_POST['profession'];
+    $profession = filter_var($profession, FILTER_SANITIZE_STRING);
+
+    $email = $_POST['email'];
+    $email = filter_var($email, FILTER_SANITIZE_STRING);
+
+    $password = sha1($_POST['password']);
+    $password = filter_var($password, FILTER_SANITIZE_STRING);
+
+    $cpass = sha1($_POST['cpass']);
+    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
+
+
+    $image = $_FILES['image']['name'];
+    $image = filter_var($image, FILTER_SANITIZE_STRING);
+    $ext = pathinfo($image, PATHINFO_EXTENSION);
+    $rename=unique_id() .'.'. $ext;
+    $image_size = $_FILES['image']['size'];
+    $image_tmp_name = $_FILES['image']['tmp_name'];
+    $image_folder = '../uploaded_files/'.$rename;
+
+    $select_tutor = $conn->prepare("SELECT * FROM `tutors` WHERE email = ?");
+    $select_tutor->execute([$email]);
+
+    if($select_tutor->rowCount() > 0){
+        $message[] = 'user already exist';
+    } else{
+        if ($password!=$cpass){
+            $message[] = 'Пароли не совпадают';
+        } else {
+            $insert_tutor = $conn->prepare("INSERT INTO `tutors`(id, name, profession, email, password, image) VALUES(?,?,?,?,?,?)");
+            $insert_tutor->execute([$id, $name, $profession, $email, $cpass, $rename]);
+            move_uploaded_file($image_tmp_name, $image_folder);
+            $message[] = "Новый преподователь зарегестрирован";
+        }
+    }
+}
+?>
+<style>
+    <?php include '../css/admin_style.css';?>
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,9 +70,8 @@ if (isset($message)) {
     }
 }
 ?>
-    <div class="box-container">
-        <img src="../image/fun.jpg" class = "form-img" style="left: -10%">
-        <form action="" method="post" enctype="multipart/form-data">
+    <div class="form-container">
+        <form action="" method="post" enctype="multipart/form-data" class="register">
             <h3>зарегистрируйтесь</h3>
                 <div class="flex">
                     <div class="col">
@@ -36,21 +80,23 @@ if (isset($message)) {
                         <p>Должность<span>*</span></p>
                         <select name="profession" required class="box">
                             <option value="" disabled selected>Выберите должность</option>
-                            <option value="Разработчик игр">Разработчик игр"></option>
-                            <option value="Разработчик мобильных приложений">Разработчик мобильных приложений"></option>
+                            <option value="Разработчик игр">Разработчик игр</option>
+                            <option value="Разработчик мобильных приложений">Разработчик мобильных приложений</option>
                         </select>
                         <p>email<span>*</span></p>
                         <input type="email" name="email" placeholder="Введите email" maxlength="50" required class="box">
                     </div>
                     <div class="col">
                         <p>пароль<span>*</span></p>
+                        <input type="password" name="password" placeholder="ПРидумайте пароль" maxlength="20" required class="box">
+                        <p>пароль<span>*</span></p>
                         <input type="password" name="cpass" placeholder="Подтвердите пароль" maxlength="20" required class="box">
                         <p>Выберите фотографию<span>*</span></p>
                         <input type="file" name="image" accept="image/*" required class="box">
                     </div>
-                    <p>Уже зарегестрированы? <a href="login.php">Войти</a></p>
-                    <input type="submit" name="submit" class="btn" value="зарегистрируйтесь">
                 </div>
+                <p class="link">Уже зарегестрированы? <a href="login.php">Войти</a></p>
+                    <input type="submit" name="submit" class="btn" value="зарегистрируйтесь">
         </form>
     </div>
 </body>
