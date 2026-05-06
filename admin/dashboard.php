@@ -1,9 +1,9 @@
 <?php
 include '../components/connect.php';
 
-if(isset($_COOKIE['tutor_id'])){
+if (isset($_COOKIE['tutor_id'])) {
     $tutor_id = $_COOKIE['tutor_id'];
-}else{
+} else {
     $tutor_id = '';
     header('location: login.php');
 }
@@ -17,7 +17,7 @@ $select_playlists = $conn->prepare("SELECT * FROM `playlist` WHERE tutor_id = ?"
 $select_playlists->execute([$tutor_id]);
 $total_playlists = $select_playlists->rowCount();
 
-$select_likes= $conn->prepare("SELECT * FROM `likes` WHERE tutor_id = ?");
+$select_likes = $conn->prepare("SELECT * FROM `likes` WHERE tutor_id = ?");
 $select_likes->execute([$tutor_id]);
 $total_likes = $select_likes->rowCount();
 
@@ -26,22 +26,24 @@ $select_comments->execute([$tutor_id]);
 $total_comments = $select_comments->rowCount();
 ?>
 <style>
-    <?php include '../css/admin_style.css';?>
+    <?php include '../css/admin_style.css'; ?>
 </style>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- boxicons -->
     <!-- Basic Icons -->
-<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <!-- css -->
-    
+
 </head>
+
 <body>
-    <?php include'../components/admin_header.php';?>
+    <?php include '../components/admin_header.php'; ?>
     <section class="dashboard">
         <h1 class="heading">Дашбоард</h1>
 
@@ -51,12 +53,12 @@ $total_comments = $select_comments->rowCount();
                 <p><?= $fetch_profile['name']; ?></p>
                 <a href="profile.php" class="btn">Посмотреть профиль</a>
             </div>
-             <div class="box">
+            <div class="box">
                 <h3><?= $total_contents; ?></h3>
                 <p>Количество материалов</p>
                 <a href="add_content.php" class="btn">Добавить новый материал</a>
             </div>
-             <div class="box">
+            <div class="box">
                 <h3><?= $total_playlists; ?></h3>
                 <p>Количество плейлистов</p>
                 <a href="add_playlist.php" class="btn">Добавить новый плейлист</a>
@@ -80,7 +82,8 @@ $total_comments = $select_comments->rowCount();
             </div>
         </div>
     </section>
-    <?php include'../components/footer.php';?>
-    <script type="text/javascript" src = "../js/admin_script.js"></script>
+    <?php include '../components/footer.php'; ?>
+    <script type="text/javascript" src="../js/admin_script.js"></script>
 </body>
+
 </html>

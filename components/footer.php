@@ -11,7 +11,7 @@
         <div class="box-container">
             <div class="box">
                 <div class="box-counter">
-                    <p class="counter" data-speed="2000">5000</p>
+                    <p class="counter" data-speed="1000">5000</p>
                     <i class="bx bx-plus"></i>
                 </div>
                 <h3>Успешно обучили</h3>
@@ -41,24 +41,24 @@
             <a href="#">Маркетинг</a>
             <a href="#">Работодатели</a>
             <a href="#">Дизайн</a>
+        </div>
+        <div class="box">
+            <h3>Наша компания</h3>
+            <a href="Contact.php">Связаться с нами</a>
+            <a href="#">Blog</a>
+            <a href="#">Мероприятия</a>
+            <a href="#">Связаться с нами</a>
+        </div>
+        <div class="box">
+            <h3>Связаться</h3>
+            <p> Телефон: +7 (123) 456-78-90</p>
+            <p>Почта: 4iM0Q@example.com</p>
+            <p>Адрес: г. Москва, ул. Пушкина, 123</p>
+            <div class="icons">
+                <i class="bx bxl-telegram"></i>
+                <i class="bx-bxl-vk"></i>
             </div>
-            <div class="box">
-                <h3>Наша компания</h3>
-                <a href="Contact.php">Связаться с нами</a>
-                <a href="#">Blog</a>
-                <a href="#">Мероприятия</a>
-                <a href="#">Связаться с нами</a>
-            </div>
-            <div class="box">
-                <h3>Связаться</h3>
-                <p> Телефон: +7 (123) 456-78-90</p>
-                <p>Почта: 4iM0Q@example.com</p>
-                <p>Адрес: г. Москва, ул. Пушкина, 123</p> 
-                <div class="icons">
-                    <i class="bx bxl-telegram"></i>
-                    <i class="bx-bxl-vk"></i>
-                </div>
-            </div>
+        </div>
     </div>
     <div class="bottom">
         <p>© 2023 Дистанциум. Все права защищены.</p>

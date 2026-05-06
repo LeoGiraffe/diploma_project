@@ -1,9 +1,9 @@
 <?php
 include '../components/connect.php';
 
-if(isset($_COOKIE['tutor_id'])){
+if (isset($_COOKIE['tutor_id'])) {
     $tutor_id = $_COOKIE['tutor_id'];
-}else{
+} else {
     $tutor_id = '';
     header('location: login.php');
 }
@@ -17,7 +17,7 @@ $select_playlists = $conn->prepare("SELECT * FROM `playlist` WHERE tutor_id = ?"
 $select_playlists->execute([$tutor_id]);
 $total_playlists = $select_playlists->rowCount();
 
-$select_likes= $conn->prepare("SELECT * FROM `likes` WHERE tutor_id = ?");
+$select_likes = $conn->prepare("SELECT * FROM `likes` WHERE tutor_id = ?");
 $select_likes->execute([$tutor_id]);
 $total_likes = $select_likes->rowCount();
 
@@ -26,22 +26,24 @@ $select_comments->execute([$tutor_id]);
 $total_comments = $select_comments->rowCount();
 ?>
 <style>
-    <?php include '../css/admin_style.css';?>
+    <?php include '../css/admin_style.css'; ?>
 </style>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tutor profile</title>
     <!-- boxicons -->
     <!-- Basic Icons -->
-<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <!-- css -->
-    
+
 </head>
+
 <body>
-    <?php include'../components/admin_header.php';?>
+    <?php include '../components/admin_header.php'; ?>
     <section class="tutor-profile" style="min-height: calc(100vh - 19rem)">
         <h1 class="heading">Профиль</h1>
         <div class="details">
@@ -55,7 +57,7 @@ $total_comments = $select_comments->rowCount();
                 <div class="box">
                     <span><?php echo $total_playlists; ?></span>
                     <p>Плейлистов</p>
-                    <a href="playlists.php" class="btn">Посмотреть</a> 
+                    <a href="playlists.php" class="btn">Посмотреть</a>
                 </div>
                 <div class="box">
                     <span><?php echo $total_contents; ?></span>
@@ -75,7 +77,8 @@ $total_comments = $select_comments->rowCount();
             </div>
         </div>
     </section>
-    <?php include'../components/footer.php';?>
+    <?php include '../components/footer.php'; ?>
     <script src="../js/admin_script.js"></script>
 </body>
+
 </html>

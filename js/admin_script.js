@@ -17,7 +17,7 @@ document.querySelector('#menu-btn').onclick = () => {
     sideBar.classList.toggle('active');
     body.classList.toggle('active');
 }
-window.onscroll = () =>{
+window.onscroll = () => {
     profile.classList.remove('active');
     searchForm.classList.remove('active');
 
@@ -46,7 +46,7 @@ window.onscroll = () =>{
                 clearInterval(stop);
             }
         }
-       const stop = setInterval(()=>{
+        const stop = setInterval(() => {
             counterUp();
         }, speed)
     })
