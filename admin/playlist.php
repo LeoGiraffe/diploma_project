@@ -34,6 +34,7 @@ if (isset($_POST['delete'])) {
 
 
 
+
 ?>
 <style>
     <?php include '../css/admin_style.css'; ?>
@@ -110,7 +111,7 @@ if (isset($_POST['delete'])) {
                         </form>
                     </div>
 
-                <?php
+                    <?php
                 }
             } else {
                 ?>

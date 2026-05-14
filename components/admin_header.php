@@ -13,8 +13,8 @@ if (isset($message)) {
 <header class="header">
     <section class="flex">
         <a href="dashboard.php"> <img src="../image/logo.png" width="130px"> </a>
-        <form action="search_pahe.php" method="post" class="search_form">
-            <input type="text" name="search" placeholder="search here.." required maxlength="100">
+        <form action="search_page.php" method="post" class="search_form">
+            <input type="text" name="search" placeholder="Поиск" required maxlength="100">
             <button type="submit" class="bx bx-search" name="search_btn"></button>
         </form>
         <div class="icons">
@@ -81,8 +81,8 @@ if (isset($message)) {
     <nav class="navbar">
         <a href="dashboard.php"><i class="bx bxs-home-heart"></i><span>Домой</span></a>
         <a href="playlist.php"><i class="bx bxs-receipt"></i><span>Плейлист</span></a>
-        <a href="contents.php"><i class="bx bxs-graduation"></i><span>Контент</span></a>
-        <a href="comments.php"><i class="bx bxs-home-heart"></i><span>Домой</span></a>
+        <a href="content.php"><i class="bx bxs-graduation"></i><span>Материалы</span></a>
+        <a href="comments.php"><i class="bx bxs-chat"></i><span>Комментарии</span></a>
         <a href="../components/admin_logout.php" onclick="return confirm ('Выйти из профиля?');"><i
                 class="bx bxs-log-in-circle"></i><span>Выйти</span></a>
 

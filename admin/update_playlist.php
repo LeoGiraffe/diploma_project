@@ -63,7 +63,7 @@ if (isset($_POST['update'])) {
 
 if (isset($_POST['delete'])) {
     $delete_id = $_POST['playlist_id'];
-    $delete_id = filter_var($delete_id, FILTER_SANITIZE_STRING);
+    $delete_id = htmlspecialchars($delete_id, ENT_QUOTES, 'UTF-8');
 
     $delete_playlist_thumb = $conn->prepare("SELECT * FROM `playlist` WHERE id = ? LIMIT 1");
     $delete_playlist_thumb->execute([$delete_id]);
@@ -120,10 +120,9 @@ if (isset($_POST['delete'])) {
                     <input type="hidden" name="playlist_id" value="<?= $playlist_id; ?>">
                     <p>Статус плейлиста <span>*</span></p>
                     <select name="status" class="box">
-                        <option value="<?= $fetch_playlist['status'] ?>" selected disabled><?= $fetch_playlist['status'] ?>
+                        <option value="active" <?= ($fetch_playlist['status'] == 'active') ? 'selected' : ''; ?>>Активный</option>
+                        <option value="deactive" <?= ($fetch_playlist['status'] == 'deactive') ? 'selected' : ''; ?>>Неактивный
                         </option>
-                        <option value="active">Активный</option>
-                        <option value="deactive">Неактивный</option>
                     </select>
                     <p>Название плейлиста <span>*</span></p>
                     <input type="text" name="title" maxlength="150" placeholder="Введите название плейлиста" class="box"
