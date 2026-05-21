@@ -8,51 +8,6 @@ if (isset($_COOKIE['tutor_id'])) {
     header('location: login.php');
 }
 
-if (isset($_POST['submit'])) {
-
-    $id = unique_id();
-    $title = $_POST['title'];
-    $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
-
-    $description = $_POST['description'];
-    $description = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
-
-    $status = $_POST['status'];
-    $status = htmlspecialchars($status, ENT_QUOTES, 'UTF-8');
-
-    $playlist = $_POST['playlist'];
-    $playlist = htmlspecialchars($playlist, ENT_QUOTES, 'UTF-8');
-
-    $image = $_FILES['image']['name'];
-    $image = htmlspecialchars($image, ENT_QUOTES, 'UTF-8');
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    $rename = unique_id() . '.' . $ext;
-    $image_size = $_FILES['image']['size'];
-    $image_tmp_name = $_FILES['image']['tmp_name'];
-    $image_folder = '../uploaded_files/' . $rename;
-
-    $video = $_FILES['video']['name'];
-    $video = htmlspecialchars($video, ENT_QUOTES, 'UTF-8');
-    $video_ext = pathinfo($video, PATHINFO_EXTENSION);
-    $video_rename = unique_id() . '.' . $video_ext;
-    //$video_size = $_FILES['video']['size'];
-    $video_tmp_name = $_FILES['video']['tmp_name'];
-    $video_folder = '../uploaded_files/' . $video_rename;
-
-    if ($image_size > 2000000) {
-        $message[] = 'Размер изображения слишком большой';
-    } else {
-        $add_playlist = $conn->prepare('INSERT INTO `content` (id, tutor_id, playlist_id, title, description, video, thumb, status) VALUES(?,?,?,?,?,?,?,?)');
-        $add_playlist->execute([$id, $tutor_id, $playlist, $title, $description, $video_rename, $rename, $status]);
-        move_uploaded_file($image_tmp_name, $image_folder);
-        move_uploaded_file($video_tmp_name, $video_folder);
-
-        $message[] = 'Материал успешно добавлен';
-    }
-
-
-}
-
 
 ?>
 <style>
@@ -76,7 +31,7 @@ if (isset($_POST['submit'])) {
     <?php include '../components/admin_header.php'; ?>
     <section class="video-form">
         <h1 class="heading">Добавить материалы</h1>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form id="contentForm" enctype="multipart/form-data">
             <p>Статус плейлиста <span>*</span></p>
             <select name="status" class="box">
                 <option value="" selected disabled>---выбрать статус---</option>
@@ -97,7 +52,7 @@ if (isset($_POST['submit'])) {
                 if ($select_playlist->rowCount() > 0) {
                     while ($fetch_playlist = $select_playlist->fetch(PDO::FETCH_ASSOC)) {
                         ?>
-                        <option value="<?= $fetch_playlist['id']; ?>"><?= $fetch_playlist['title']; ?>"></option>
+                        <option value="<?= $fetch_playlist['id']; ?>"><?= $fetch_playlist['title']; ?></option>
                         <?php
                     }
 
@@ -120,6 +75,8 @@ if (isset($_POST['submit'])) {
     </section>
     <?php include '../components/footer.php'; ?>
     <script type="text/javascript" src="../js/admin_script.js"></script>
+    <script src="../js/app.js"></script>
+<script src="../js/modules/content.js"></script>
 </body>
 
 </html>

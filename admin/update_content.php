@@ -14,111 +14,7 @@ if (isset($_GET['get_id'])) {
     header('location:dashboard.php');
 }
 
-if (isset($_POST['update'])) {
-    $video_id = $_POST['video_id'];
-    $video_id = htmlspecialchars($video_id, ENT_QUOTES, 'UTF-8');
-    $status = $_POST['status'];
-    $status = htmlspecialchars($status, ENT_QUOTES, 'UTF-8');
 
-    $title = $_POST['title'];
-    $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
-
-    $description = $_POST['description'];
-    $description = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
-
-    $playlist = $_POST['playlist'];
-    $playlist = htmlspecialchars($playlist, ENT_QUOTES, 'UTF-8');
-
-    $update_content = $conn->prepare('UPDATE `content` SET title = ?, description = ?, playlist_id = ?, status = ? WHERE id = ?');
-    $update_content->execute([$title, $description, $playlist, $status, $video_id]);
-
-
-    if (!empty($playlist)) {
-        $update_playlist = $conn->prepare('UPDATE `content` SET playlist_id = ? WHERE id = ?');
-        $update_playlist->execute([$playlist, $video_id]);
-    }
-
-
-
-    $old_thumb = $_POST['old_thumb'];
-    $old_thumb = htmlspecialchars($old_thumb, ENT_QUOTES, 'UTF-8');
-
-
-    $image = $_FILES['image']['name'];
-    $image = htmlspecialchars($image, ENT_QUOTES, 'UTF-8');
-
-    $image_ext = pathinfo($image, PATHINFO_EXTENSION);
-    $rename_image = unique_id() . '.' . $image_ext;
-    $image_size = $_FILES['image']['size'];
-    $image_tmp_name = $_FILES['image']['tmp_name'];
-    $image_folder = '../uploaded_files/' . $rename_image;
-
-
-    if (!empty($image)) {
-        if ($image_size > 2000000) {
-            $message[] = 'Размер изображения слишком большой';
-        } else {
-            $update_thumb = $conn->prepare('UPDATE `content` SET thumb = ? WHERE id = ?');
-            $update_thumb->execute([$rename_image, $video_id]);
-            move_uploaded_file($image_tmp_name, $image_folder);
-            if ($old_thumb != '' AND $old_thumb != $rename_image) {
-                unlink('../uploaded_files/' . $old_thumb);
-            }
-        }
-    }
-
-    $old_video = $_POST['old_video'];
-    $old_video = htmlspecialchars($old_video, ENT_QUOTES, 'UTF-8');
-
-
-    $video = $_FILES['video']['name'];
-    $video = htmlspecialchars($video, ENT_QUOTES, 'UTF-8');
-
-    $video_ext = pathinfo($video, PATHINFO_EXTENSION);
-    $rename_video = unique_id() . '.' . $video_ext;
-    $video_tmp_name = $_FILES['video']['tmp_name'];
-    $video_folder = '../uploaded_files/' . $rename_video;
-
-
-    if (!empty($video)) {
-        $update_video = $conn->prepare('UPDATE `content` SET video = ? WHERE id = ?');
-        $update_video->execute([$rename_video, $video_id]);
-        move_uploaded_file($video_tmp_name, $video_folder);
-
-        if ($old_video != '' AND $old_video != $rename_video) {
-            unlink('../uploaded_files/' . $old_video);
-        }
-    }
-    $message[] = 'Контент обновлен';
-}
-
-if(isset($_POST['delete'])){
-    $delete_id = $_POST['video_id'];
-    $delete_id = htmlspecialchars($delete_id, ENT_QUOTES, 'UTF-8');
-
-    $delete_video_thumb = $conn->prepare('SELECT thumb, video FROM `content` WHERE id = ? LIMIT 1');
-    $delete_video_thumb->execute([$delete_id]);
-    $fetch_files = $delete_video_thumb->fetch(PDO::FETCH_ASSOC);
-    
-    if(!empty($fetch_files['thumb'])) {
-        unlink('../uploaded_files/' . $fetch_files['thumb']);
-    }
-    
-    if(!empty($fetch_files['video'])) {
-        unlink('../uploaded_files/' . $fetch_files['video']);
-    }
-
-    $delete_likes = $conn->prepare('DELETE FROM `likes` WHERE content = ?');
-    $delete_likes->execute([$delete_id]);
-    
-    $delete_comments = $conn->prepare('DELETE FROM `comments` WHERE content_id = ?');
-    $delete_comments->execute([$delete_id]);
-
-    $delete_content = $conn->prepare('DELETE FROM `content` WHERE id = ?');
-    $delete_content->execute([$delete_id]);
-    
-    header('location:content.php');
-}
 
 
 ?>
@@ -131,7 +27,7 @@ if(isset($_POST['delete'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добавить плейлист</title>
+    <title>Обновить материал</title>
     <!-- boxicons -->
     <!-- Basic Icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -153,7 +49,7 @@ if(isset($_POST['delete'])){
 
                 ?>
 
-                <form action="" method="post" enctype="multipart/form-data">
+                <form id="updateContentForm" enctype="multipart/form-data">
                     <input type="hidden" name="video_id" value="<?= $fetch_videos['id']; ?>">
                     <input type="hidden" name="old_thumb" value="<?= $fetch_videos['thumb']; ?>">
                     <input type="hidden" name="old_video" value="<?= $fetch_videos['video']; ?>">
@@ -201,7 +97,9 @@ if(isset($_POST['delete'])){
                     <div class="flex-btn">
                         <input type="submit" name="update" value="Обновить" class="btn">
                         <a href="view_content.php?get_id=<?= $video_id ?>" class="btn">Посмотреть</a>
-                        <input type="submit" name="delete" value="Удалить" class="btn">
+                        <button type="button" id="deleteContentBtn" class="btn">
+                            Удалить
+                        </button>
                     </div>
 
                 </form>
@@ -220,6 +118,11 @@ if(isset($_POST['delete'])){
     </section>
     <?php include '../components/footer.php'; ?>
     <script type="text/javascript" src="../js/admin_script.js"></script>
+    <script src="../js/app.js"></script>
+
+<script src="../js/modules/content-update.js"></script>
+
+<script src="../js/modules/content-delete.js"></script>
 </body>
 
 </html>

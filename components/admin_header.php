@@ -50,6 +50,7 @@ if (isset($message)) {
                 <?php
             }
             ?>
+            </div>
     </section>
 </header>
 <div class="side-bar">
@@ -64,8 +65,8 @@ if (isset($message)) {
             <img src="../uploaded_files/<?= $fetch_profile['image']; ?>">
             <h3><?= $fetch_profile['name']; ?></h3>
             <p><?= $fetch_profile['profession']; ?></p>
-            <a href="prifile.php" class="btn">Посмтотреть профиль</a>
-        <?php
+            <a href="profile.php" class="btn">Посмтотреть профиль</a>
+            <?php
         } else {
 
             ?>
@@ -86,6 +87,7 @@ if (isset($message)) {
         <a href="../components/admin_logout.php" onclick="return confirm ('Выйти из профиля?');"><i
                 class="bx bxs-log-in-circle"></i><span>Выйти</span></a>
 
-
+                <script src="../js/ajax.js"></script>
+                <script src="../js/app.js"></script>
     </nav>
 </div>

@@ -149,7 +149,7 @@ if(isset($_POST['delete_comment'])){
 
     </section>
 
-    <Sectio class="comments">
+    <Section class="comments">
         <h1 class="heading">Комментарии</h1>
         <div class="show-comments">
             <?php

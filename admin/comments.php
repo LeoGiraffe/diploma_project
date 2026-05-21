@@ -9,22 +9,6 @@ if (isset($_COOKIE['tutor_id'])) {
 }
 
 
-if (isset($_POST['delete_comment'])) {
-    $delete_id = $_POST[' сomment_id'];
-    $delete_id = htmlspecialchars($delete_id, ENT_QUOTES, 'UTF-8');
-
-    $verify_comment = $conn->prepare("SELECT * FROM `comments` WHERE id = ? ");
-    $verify_comment->execute([$delete_id]);
-
-    if ($verify_comment->rowCount() > 0) {
-        $delete_comment = $conn->prepare('DELETE FROM `comments` WHERE id = ?');
-        $delete_comment->execute([$delete_id]);
-        $message[] = 'Комментарий успешно удален';
-    } else {
-        $message[] = 'Комментарий уже удален';
-    }
-
-}
 
 ?>
 <style>
@@ -61,12 +45,17 @@ if (isset($_POST['delete_comment'])) {
 
 
                     ?>
-                    <div class="box" style="<?php if($fetch_comment['tutor_id'] == $tutor_is){echo 'order: -1';}  ?>">
-                        <div class="content"><span><?= $fetch_comment['date']; ?></span><p>- <?= $fetch_content['title']; ?> -</p><a href="view_content.php?get_id=<?= $fetch_content['id']; ?>">Посмотреть"></a></div>
+                    <div class="box" style="<?php if ($fetch_comment['tutor_id'] == $tutor_is) {
+                        echo 'order: -1';
+                    } ?>">
+                        <div class="content"><span><?= $fetch_comment['date']; ?></span>
+                            <p>- <?= $fetch_content['title']; ?> -</p><a
+                                href="view_content.php?get_id=<?= $fetch_content['id']; ?>">Посмотреть"></a>
+                        </div>
                         <p class="text"><?= $fetch_comment['comment']; ?></p>
-                        <form action="" method="post">
-                            <input type="hidden" name="comment_id" value="<?= $fetch_comment['id']; ?>">
-                            <button type="submit" name="delete_content" value="Удалить комментарий" class="btn" onclick="return confirm('Удалить этот комментарий?')">Удалить</button>
+                        <form class="delete-comment-form" data-id="<?= $fetch_comment['id']; ?>">
+
+                            <button type="submit" value="Удалить комментарий" class="btn">Удалить</button>
                         </form>
 
                     </div>
@@ -82,6 +71,8 @@ if (isset($_POST['delete_comment'])) {
         </Section>
         <?php include '../components/footer.php'; ?>
         <script type="text/javascript" src="../js/admin_script.js"></script>
+        <script src="../js/app.js"></script>
+        <script src="../js/modules/comments.js"></script>
 </body>
 
 </html>

@@ -8,43 +8,6 @@ if (isset($_COOKIE['tutor_id'])) {
     header('location: login.php');
 }
 
-//delete from playlist
-if (isset($_POST['delete'])) {
-    $delete_id = $_POST['video_id'];
-    $delete_id = htmlspecialchars($delete_id, ENT_QUOTES, 'UTF-8');
-
-
-    $verify_video = $conn->prepare("SELECT * FROM `content` WHERE id = ? LIMIT 1");
-    $verify_video->execute([$delete_id]);
-
-    if ($verify_video->rowCount() > 0) {
-        $delete_video_thumb = $conn->prepare('SELECT * FROM `content` WHERE id = ? LIMIT 1');
-        $delete_video_thumb->execute([$delete_id]);
-        $fetch_thumb = $delete_video_thumb->fetch(PDO::FETCH_ASSOC);
-        unlink('../uploaded_files/' . $fetch_thumb['thumb']);
-
-        $delete_video = $conn->prepare('SELECT * FROM `content` WHERE id = ? LIMIT 1');
-        $delete_video->execute([$delete_id]);
-        $fetch_video = $delete_video->fetch(PDO::FETCH_ASSOC);
-        unlink('../uploaded_files/' . $fetch_video['video']);
-
-        $delete_likes = $conn->prepare('SELECT * FROM `likes` WHERE content = ?');
-        $delete_likes->execute([$delete_id]);
-
-        $delete_comments = $conn->prepare('SELECT * FROM `comments` WHERE content_id = ?');
-        $delete_comments->execute([$delete_id]);
-
-        $delete_content = $conn->prepare('DELETE FROM `content` WHERE id = ?');
-        $delete_content->execute([$delete_id]);
-
-        $message[] = 'Видео успешно удалено';
-    } else {
-        $message[] = 'Видео не найдено';
-    }
-}
-
-
-
 ?>
 <style>
     <?php include '../css/admin_style.css'; ?>
@@ -101,11 +64,11 @@ if (isset($_POST['delete'])) {
                             </div>
                             <img src="../uploaded_files/<?= $fetch_videos['thumb'] ?>" class="thumb">
                             <h3 class="title"> <?= $fetch_videos['title'] ?></h3>
-                            <form action="" method="post" class="flex-btn">
-                                <input type="hidden" name="video_id" value="<?= $video_id ?>">
+                            <form class="delete-video-form" data-id="<?= $video_id; ?>">
                                 <a href="update_content.php?get_id=<?= $video_id; ?>" class="btn">Обновить</a>
-                                <input type="submit" name="delete" value="Удалить" class="btn"
-                                    onclick="return confirm('Удалить этот материал?')">
+                                <button type="submit" class="btn">
+                                    Удалить
+                                </button>
                                 <a href="view_content.php?get_id=<?= $video_id; ?>" class="btn">Посмотреть</a>
 
                             </form>
@@ -123,6 +86,8 @@ if (isset($_POST['delete'])) {
     </section>
     <?php include '../components/footer.php'; ?>
     <script type="text/javascript" src="../js/admin_script.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/modules/content-delete.js"></script>
 </body>
 
 </html>

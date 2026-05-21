@@ -12,73 +12,10 @@ if (isset($_COOKIE['tutor_id'])) {
 
 
 
-if (isset($_POST['delete_playlist'])) {
-    $delete_id = $_POST['playlist_id'];
-    $delete_id = htmlspecialchars($delete_id, ENT_QUOTES, 'UTF-8');
 
-    $delete_playlist_thumb = $conn->prepare("SELECT * FROM `playlist` WHERE id = ? LIMIT 1");
-    $delete_playlist_thumb->execute([$delete_id]);
-    $fetch_thumb = $delete_playlist_thumb->fetch(PDO::FETCH_ASSOC);
-    unlink('../uploaded_files/' . $fetch_thumb['thumb']);
-
-
-    $delete_bookmark = $conn->prepare('DELETE FROM `bookmark` WHERE playlist_id = ?');
-    $delete_bookmark->execute([$delete_id]);
-    $delete_playlist = $conn->prepare('DELETE FROM `playlist` WHERE id = ?');
-    $delete_playlist->execute([$delete_id]);
-
-    $message[] = 'Плейлист успешно удален';
-}
 //delete from playlist
-if (isset($_POST['delete_video'])) {
-    $delete_id = $_POST['video_id'];
-    $delete_id = htmlspecialchars($delete_id, ENT_QUOTES, 'UTF-8');
 
 
-    $verify_video = $conn->prepare("SELECT * FROM `content` WHERE id = ? LIMIT 1");
-    $verify_video->execute([$delete_id]);
-
-    if ($verify_video->rowCount() > 0) {
-        $delete_video_thumb = $conn->prepare('SELECT * FROM `content` WHERE id = ? LIMIT 1');
-        $delete_video_thumb->execute([$delete_id]);
-        $fetch_thumb = $delete_video_thumb->fetch(PDO::FETCH_ASSOC);
-        unlink('../uploaded_files/' . $fetch_thumb['thumb']);
-
-        $delete_video = $conn->prepare('SELECT * FROM `content` WHERE id = ? LIMIT 1');
-        $delete_video->execute([$delete_id]);
-        $fetch_video = $delete_video->fetch(PDO::FETCH_ASSOC);
-        unlink('../uploaded_files/' . $fetch_video['video']);
-
-        $delete_likes = $conn->prepare('DELETE FROM `likes` WHERE content = ?');
-        $delete_likes->execute([$delete_id]);
-
-        $delete_comments = $conn->prepare('DELETE FROM `comments` WHERE content_id = ?');
-        $delete_comments->execute([$delete_id]);
-
-        $delete_content = $conn->prepare('DELETE FROM `content` WHERE id = ?');
-        $delete_content->execute([$delete_id]);
-
-        $message[] = 'Видео успешно удалено';
-    } else {
-        $message[] = 'Видео не найдено';
-    }
-}
-if (isset($_POST['delete_comment'])) {
-    $delete_id = $_POST['delete_id'];
-    $delete_id = htmlspecialchars($delete_id, ENT_QUOTES, 'UTF-8');
-
-    $verify_comment = $conn->prepare("SELECT * FROM `comments` WHERE id = ? ");
-    $verify_comment->execute([$delete_id]);
-
-    if ($verify_comment->rowCount() > 0) {
-        $delete_comment = $conn->prepare('DELETE FROM `comments` WHERE id = ?');
-        $delete_comment->execute([$delete_id]);
-        $message[] = 'Комментарий успешно удален';
-    } else {
-        $message[] = 'Комментарий уже удален';
-    }
-
-}
 
 ?>
 <style>
@@ -90,7 +27,7 @@ if (isset($_POST['delete_comment'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добавить плейлист</title>
+    <title>Поиск</title>
     <!-- boxicons -->
     <!-- Basic Icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -133,11 +70,11 @@ if (isset($_POST['delete_comment'])) {
                             </div>
                             <img src="../uploaded_files/<?= $fetch_contents['thumb']; ?>" class="thumb">
                             <h3 class="title"><?= $fetch_contents['title']; ?></h3>
-                            <form action="" method="post">
-                                <input type="hidden" name="video_id" value="<?= $video_id ?>">
+                            <form class="delete-video-form" data-id="<?= $video_id; ?>">
                                 <a href="update_content.php?get_id=<?= $video_id; ?>" class="btn">Обновить</a>
-                                <input type="submit" name="delete_video" class="btn" value="Удалить"
-                                    onclick="return confirm('Удалить?')">
+                                <button type="submit" class="btn">
+                                    Удалить
+                                </button>
                                 <a href="view_content.php?get_id=<?= $video_id; ?>" class="btn">Посмотреть</a>
                             </form>
 
@@ -192,11 +129,11 @@ if (isset($_POST['delete_comment'])) {
                             </div>
                             <h3 class="title"><?= $fetch_playlist['title']; ?></h3>
                             <p class="description"><?= $fetch_playlist['description']; ?></p>
-                            <form action="" method="post">
-                                <input type="hidden" name="playlist_id" value="<?= $playlist_id ?>">
+                            <form class="delete-playlist-form" data-id="<?= $playlist_id; ?>">
                                 <a href="update_playlist.php?get_id=<?= $playlist_id; ?>" class="btn">Обновить</a>
-                                <input type="submit" name="delete_playlist" class="btn" value="Удалить"
-                                    onclick="return confirm('Удалить?')">
+                                <button type="submit" class="btn">
+                                    Удалить
+                                </button>
                                 <a href="view_playlist.php?get_id=<?= $playlist_id; ?>" class="btn">Посмотреть</a>
                             </form>
 
@@ -217,6 +154,11 @@ if (isset($_POST['delete_comment'])) {
     </section>
     <?php include '../components/footer.php'; ?>
     <script type="text/javascript" src="../js/admin_script.js"></script>
+    <script src="../js/app.js"></script>
+
+<script src="../js/modules/content-delete.js"></script>
+
+<script src="../js/modules/playlist-delete.js"></script>
 </body>
 
 </html>

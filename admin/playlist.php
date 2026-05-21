@@ -8,29 +8,7 @@ if (isset($_COOKIE['tutor_id'])) {
     header('location: login.php');
 }
 
-if (isset($_POST['delete'])) {
-    $delete_id = $_POST['playlist_id'];
-    $delete_id = htmlspecialchars($delete_id, ENT_QUOTES, 'UTF-8');
 
-    $verify_playlist = $conn->prepare("SELECT * FROM `playlist` WHERE id = ? AND tutor_id = ? LIMIT 1");
-    $verify_playlist->execute([$delete_id, $tutor_id]);
-
-    if ($verify_playlist->rowCount() > 0) {
-        $delete_playlist_thumb = $conn->prepare("SELECT * FROM `playlist` WHERE id = ? LIMIT 1");
-        $delete_playlist_thumb->execute([$delete_id]);
-        $fetch_thumb = $delete_playlist_thumb->fetch(PDO::FETCH_ASSOC);
-        unlink('../uploaded_files/' . $fetch_thumb['thumb']);
-
-        $delete_bookmark = $conn->prepare('DELETE FROM `bookmark` WHERE playlist_id = ?');
-        $delete_bookmark->execute([$delete_id]);
-        $delete_playlist = $conn->prepare('DELETE FROM `playlist` WHERE id = ?');
-        $delete_playlist->execute([$delete_id]);
-
-        $message[] = 'Плейлист успешно удален';
-    } else {
-        $message[] = 'Плейлист уже удален';
-    }
-}
 
 
 
@@ -45,7 +23,7 @@ if (isset($_POST['delete'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добавить плейлист</title>
+    <title>Плейлист</title>
     <!-- boxicons -->
     <!-- Basic Icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -102,11 +80,11 @@ if (isset($_POST['delete'])) {
                         <h3 class="title"><?= htmlspecialchars($fetch_playlist['title']); ?></h3>
                         <p class="description"><?= htmlspecialchars($fetch_playlist['description']); ?></p>
 
-                        <form action="" method="post" class="flex-btn">
-                            <input type="hidden" name="playlist_id" value="<?= $playlist_id; ?>">
+                        <form class="delete-playlist-form flex-btn" data-id="<?= $playlist_id; ?>">
                             <a href="update_playlist.php?get_id=<?= $playlist_id; ?>" class="btn">Редактировать</a>
-                            <input type="submit" name="delete" value="Удалить" class="btn"
-                                onclick="return confirm('Удалить этот плейлист?')">
+                            <button type="submit" class="btn">
+                                Удалить
+                            </button>
                             <a href="view_playlist.php?get_id=<?= $playlist_id; ?>" class="btn">Посмотреть</a>
                         </form>
                     </div>
@@ -122,6 +100,8 @@ if (isset($_POST['delete'])) {
     </section>
     <?php include '../components/footer.php'; ?>
     <script type="text/javascript" src="../js/admin_script.js"></script>
+    <script src="../js/app.js"></script>
+<script src="../js/modules/playlist-delete.js"></script>
 </body>
 
 </html>

@@ -1,28 +1,7 @@
 <?php
 include '../components/connect.php';
 
-if (isset($_POST['submit'])) {
 
-
-    $email = $_POST['email'];
-    $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
-
-    $password = sha1($_POST['password']);
-
-
-
-    $select_tutor = $conn->prepare("SELECT * FROM `tutors` WHERE email = ?  AND password = ? LIMIT 1");
-    $select_tutor->execute([$email, $password]);
-    $row = $select_tutor->fetch(PDO::FETCH_ASSOC);
-
-    if ($select_tutor->rowCount() > 0) {
-        setcookie('tutor_id', $row['id'], time() + 60 * 60 * 24 * 30, '/');
-        header('location: dashboard.php');
-
-    } else {
-        $message[] = 'Неправильный логин или пароль';
-    }
-}
 ?>
 <style>
     <?php include '../css/admin_style.css'; ?>
@@ -41,19 +20,10 @@ if (isset($_POST['submit'])) {
 <body>
     <?php
 
-    if (isset($message)) {
-        foreach ($message as $msg) {
-            echo '
-        <div class="message">
-            <span>' . $msg . '</span>
-            <i class="bx bx-x" onclick="this.parentElement.remove();"></i>
-        </div>
-        ';
-        }
-    }
+
     ?>
     <div class="form-container">
-        <form action="" method="post" enctype="multipart/form-data" class="login">
+        <form id="loginForm" class="login">
             <h3>Войти</h3>
             <p>email<span>*</span></p>
             <input type="email" name="email" placeholder="Введите email" maxlength="50" required class="box">
@@ -64,6 +34,8 @@ if (isset($_POST['submit'])) {
             <input type="submit" name="submit" class="btn" value="Войти">
         </form>
     </div>
+ <script src="../js/app.js"></script>
+<script src="../js/modules/auth.js"></script>
 </body>
 
 </html>

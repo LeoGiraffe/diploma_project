@@ -31,7 +31,7 @@
 <footer>
     <div class="content">
         <div class="box">
-            <img src="../image/logo.png" alt="">
+            <img src="../image/logo.png">
             <p>Мы ждем талантливых и мотивированных людей</p>
             <a href="contact" class="btn">Связаться</a>
         </div>

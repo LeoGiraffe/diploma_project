@@ -9,21 +9,51 @@ if (isset($_COOKIE['tutor_id'])) {
 }
 
 
-$select_contents = $conn->prepare("SELECT * FROM `content` WHERE tutor_id = ?");
+$select_contents = $conn->prepare("
+    SELECT COUNT(*) 
+    FROM content 
+    WHERE tutor_id = ?
+");
+
 $select_contents->execute([$tutor_id]);
+
+$select_contents = $conn->prepare("
+    SELECT COUNT(*) 
+    FROM content 
+    WHERE tutor_id = ?
+");
 $total_contents = $select_contents->rowCount();
+$total_contents = $select_contents->fetchColumn();
 
-$select_playlists = $conn->prepare("SELECT * FROM `playlist` WHERE tutor_id = ?");
+$select_playlists = $conn->prepare("
+    SELECT COUNT(*)
+    FROM playlist
+    WHERE tutor_id = ?
+");
+
 $select_playlists->execute([$tutor_id]);
-$total_playlists = $select_playlists->rowCount();
 
-$select_likes = $conn->prepare("SELECT * FROM `likes` WHERE tutor_id = ?");
+$total_playlists = $select_playlists->fetchColumn();
+
+$select_likes = $conn->prepare("
+    SELECT COUNT(*)
+    FROM likes
+    WHERE tutor_id = ?
+");
+
 $select_likes->execute([$tutor_id]);
-$total_likes = $select_likes->rowCount();
 
-$select_comments = $conn->prepare("SELECT * FROM `comments` WHERE tutor_id = ?");
+$total_likes = $select_likes->fetchColumn();
+
+$select_comments = $conn->prepare("
+    SELECT COUNT(*)
+    FROM comments
+    WHERE tutor_id = ?
+");
+
 $select_comments->execute([$tutor_id]);
-$total_comments = $select_comments->rowCount();
+
+$total_comments = $select_comments->fetchColumn();
 ?>
 <style>
     <?php include '../css/admin_style.css'; ?>
@@ -49,7 +79,7 @@ $total_comments = $select_comments->rowCount();
 
         <div class="box-container">
             <div class="box">
-                <h3>Добро подоловать!</h3>
+                <h3>Добро пожаловать!</h3>
                 <p><?= $fetch_profile['name']; ?></p>
                 <a href="profile.php" class="btn">Посмотреть профиль</a>
             </div>

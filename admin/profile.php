@@ -8,6 +8,9 @@ if (isset($_COOKIE['tutor_id'])) {
     header('location: login.php');
 }
 
+$select_profile = $conn->prepare("SELECT * FROM `tutors` WHERE id = ?");
+$select_profile->execute([$tutor_id]);
+$fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
 
 $select_contents = $conn->prepare("SELECT * FROM `content` WHERE tutor_id = ?");
 $select_contents->execute([$tutor_id]);
@@ -57,17 +60,17 @@ $total_comments = $select_comments->rowCount();
                 <div class="box">
                     <span><?php echo $total_playlists; ?></span>
                     <p>Плейлистов</p>
-                    <a href="playlists.php" class="btn">Посмотреть</a>
+                    <a href="playlist.php" class="btn">Посмотреть</a>
                 </div>
                 <div class="box">
                     <span><?php echo $total_contents; ?></span>
                     <p>Материалов</p>
-                    <a href="contents.php" class="btn">Посмотреть</a>
+                    <a href="content.php" class="btn">Посмотреть</a>
                 </div>
                 <div class="box">
                     <span><?php echo $total_likes; ?></span>
                     <p>Лайков</p>
-                    <a href="contents.php" class="btn">Посмотреть</a>
+                    <a href="content.php" class="btn">Посмотреть</a>
                 </div>
                 <div class="box">
                     <span><?php echo $total_comments; ?></span>
