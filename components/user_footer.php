@@ -56,7 +56,7 @@
             <p>Адрес: г. Москва, ул. Пушкина, 123</p>
             <div class="icons">
                 <i class="bx bxl-telegram"></i>
-                <i class="bx-bxl-vk"></i>
+                <i class="bx bxl-vk"></i>
             </div>
         </div>
     </div>

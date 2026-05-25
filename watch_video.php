@@ -20,114 +20,6 @@ if (isset($_GET['get_id'])) {
 }
 
 
-if (isset($_POST['like_content'])) {
-    if ($user_id != '') {
-        $content_id = $_POST['content_id'];
-        $content_id = htmlspecialchars($content_id, ENT_QUOTES, 'UTF-8');
-
-        $select_content = $conn->prepare('SELECT * FROM `content` WHERE id=? LIMIT 1');
-        $select_content->execute([$content_id]);
-        $fetch_content = $select_content->fetch(PDO::FETCH_ASSOC);
-
-        $tutor_id = $fetch_content['tutor_id'];
-
-        $select_likes = $conn->prepare('SELECT * FROM `likes` WHERE content=? AND user_id=?');
-        $select_likes->execute([$content_id, $user_id]);
-
-        if ($select_likes->rowCount() > 0) {
-            $delete_likes = $conn->prepare('DELETE FROM `likes` WHERE content=? AND user_id=?');
-            $delete_likes->execute([$content_id, $user_id]);
-            $message[] = 'Удалено из понравившихся';
-        } else {
-            $insert_likes = $conn->prepare('INSERT INTO `likes`(content, user_id, tutor_id) VALUES(?,?,?)');
-            $insert_likes->execute([$content_id, $user_id, $tutor_id]);
-            $message[] = 'Добавлено в понравившиеся';
-        }
-
-    } else {
-        $message[] = 'Сначала войдите в аккаунт';
-    }
-
-}
-
-//////add comment 
-
-
-if (isset($_POST['add_comment'])) {
-    if ($user_id != '') {
-        $id = unique_id();
-        $comment_box = $_POST['comment_box'];
-        $comment_box = htmlspecialchars($comment_box, ENT_QUOTES, 'UTF-8');
-        $content_id = $_POST['comment_id'];
-        $content_id = htmlspecialchars($content_id, ENT_QUOTES, 'UTF-8');
-
-        $select_content = $conn->prepare('SELECT * FROM `content` WHERE id=? LIMIT 1');
-        $select_content->execute([$content_id]);
-        $fetch_content = $select_content->fetch(PDO::FETCH_ASSOC);
-
-        $tutor_id = $fetch_content['tutor_id'];
-        if ($select_content->rowCount() > 0) {
-            $select_comment = $conn->prepare('SELECT * FROM `comments` WHERE content_id=? AND user_id=? AND comment =? LIMIT 1');
-            $select_comment->execute([$content_id, $user_id, $comment_box]);
-
-
-            if ($select_comment->rowCount() > 0) {
-                $message[] = 'Комментарий уже добавлен';
-            } else {
-                $insert_comment = $conn->prepare('INSERT INTO `comments`(id, content_id, user_id, tutor_id, comment) VALUES(?,?,?,?,?)');
-                $insert_comment->execute([$id, $content_id, $user_id, $tutor_id, $comment_box]);
-                $message[] = 'Комментарий добавлен';
-            }
-
-        }
-    } else {
-        $message[] = 'Сначала войдите в аккаунт';
-    }
-}
-
-//delete
-if (isset($_POST['delete_comment'])) {
-    $delete_id = $_POST['comment_id'];
-    $delete_id = htmlspecialchars($delete_id, ENT_QUOTES, 'UTF-8');
-
-
-    $verify_comment = $conn->prepare("SELECT * FROM `comments` WHERE id = ? ");
-    $verify_comment->execute([$delete_id]);
-
-    if ($verify_comment->rowCount() > 0) {
-        $delete_comment = $conn->prepare('DELETE FROM `comments` WHERE id = ?');
-        $delete_comment->execute([$delete_id]);
-        $message[] = 'Комментарий успешно удален';
-    } else {
-        $message[] = 'Комментарий уже удален';
-
-
-
-    }
-}
-
-//update_comment
-
-if (isset($_POST['update_now'])) {
-    $update_id = $_POST['update_id'];
-    $update_id = htmlspecialchars($update_id, ENT_QUOTES, 'UTF-8');
-    $update_box = $_POST['update_box'];
-    $update_box = htmlspecialchars($update_box, ENT_QUOTES, 'UTF-8');
-
-
-    $verify_comment = $conn->prepare("SELECT * FROM `comments` WHERE id = ? AND comment =? ");
-    $verify_comment->execute([$update_id, $update_box]);
-
-    if ($verify_comment->rowCount() > 0) {
-        $message[] = 'Комментарий уже обновлен';
-    } else {
-        $update_comment = $conn->prepare('UPDATE `comments` SET comment = ? WHERE id = ?');
-        $update_comment->execute([$update_box, $update_id]);
-        $message[] = 'Комментарий обновлен';
-    }
-
-}
-
 
 
 
@@ -238,9 +130,9 @@ if (isset($_POST['update_now'])) {
             while ($fetch_content = $select_content->fetch(PDO::FETCH_ASSOC)) {
                 $content_id = $fetch_content['id'];
 
-                $select_likes = $conn->prepare('SELECT * FROM `likes` WHERE content = ? AND user_id = ?');
-                $select_likes->execute([$content_id, $user_id]);
-                $total_likes = $select_likes->rowCount();
+                $count_likes = $conn->prepare('SELECT * FROM `likes` WHERE content = ?');
+                $count_likes->execute([$content_id]);
+                $total_likes = $count_likes->rowCount();
 
                 $verify_likes = $conn->prepare('SELECT * FROM `likes` WHERE content = ? AND user_id = ?');
                 $verify_likes->execute([$content_id, $user_id]);
@@ -281,22 +173,21 @@ if (isset($_POST['update_now'])) {
                     </span>
                 </div>
             </div>
-            <form action="" method="post" class="flex">
-                <input type="hidden" name="content_id" value="<?= $content_id ?>">
-                <a href="playlist.php?get_id=<?php $fetch_content['playlist_id']; ?>" class="btn">Посмтореть
-                    плейлист</a>
+            <div class="flex">
 
-                <?php if ($verify_likes->rowCount() > 0) { ?>
-                <button type="submit" name="like_content" class="like"><i
-                        class="bx bxs-heart"></i><span>Лайк</span></button>
-                <?php } else { ?>
-                <button type="submit" name="like_content" class="like_content"><i
-                        class="bx bx-heart"></i><span>Лайк</span></button>
+                <a href="playlist.php?get_id=<?= $fetch_content['playlist_id']; ?>" class="btn">
+                    Посмотреть плейлист
+                </a>
 
-                <?php } ?>
+                <button type="button" class="like-btn" data-content-id="<?= $content_id ?>">
+                    <?php if ($verify_likes->rowCount() > 0) { ?>
+                    <i class="bx bxs-heart"></i><span>Лайк</span>
+                    <?php } else { ?>
+                    <i class="bx bx-heart"></i><span>Лайк</span>
+                    <?php } ?>
+                </button>
 
-
-            </form>
+            </div>
 
 
             <div class="description">
@@ -324,12 +215,16 @@ if (isset($_POST['update_now'])) {
         </div>
 
 
-        <form action="" method="post" class="add-comment">
+        <form class="add-comment" data-id="<?= $get_id ?>">
 
-            <input type="hidden" name="comment_id" value="<?= $get_id ?>">
-            <textarea name="comment_box" placeholder="Добавить комментарий" maxlength="1000" cols="30"
-                rows="10"></textarea>
-            <input type="submit" name="add_comment" class="btn" value="Добавить комментарий">
+            <input type="hidden" name="content_id" value="<?= $get_id ?>">
+
+            <textarea name="comment" placeholder="Добавить комментарий" maxlength="1000" cols="30" rows="10"
+                required></textarea>
+
+            <button type="submit" class="btn">
+                Добавить комментарий
+            </button>
 
         </form>
         <div class="heading">
@@ -337,19 +232,24 @@ if (isset($_POST['update_now'])) {
         </div>
 
         <div class="show-comments">
+
             <?php
             $select_comments = $conn->prepare('SELECT * FROM `comments` WHERE content_id = ? ORDER BY id DESC');
             $select_comments->execute([$get_id]);
 
             if ($select_comments->rowCount() > 0) {
+
                 while ($fetch_comment = $select_comments->fetch(PDO::FETCH_ASSOC)) {
+
                     $select_commentor = $conn->prepare('SELECT * FROM `users` WHERE id = ? LIMIT 1');
                     $select_commentor->execute([$fetch_comment['user_id']]);
                     $fetch_commentor = $select_commentor->fetch(PDO::FETCH_ASSOC);
                     ?>
-            <div class="box" style="<?= ($fetch_comment['user_id'] == $user_id) ? 'order: -1' : '' ?>">
+
+            <div class="comment-box" data-id="<?= $fetch_comment['id'] ?>">
+
                 <div class="user">
-                    <img src="uploaded_files/<?= htmlspecialchars($fetch_commentor['image']) ?>" alt="Avatar">
+                    <img src="uploaded_files/<?= htmlspecialchars($fetch_commentor['image']) ?>" alt="">
                     <div>
                         <h3>
                             <?= htmlspecialchars($fetch_commentor['name']) ?>
@@ -359,25 +259,44 @@ if (isset($_POST['update_now'])) {
                         </span>
                     </div>
                 </div>
-                <p class="text">
-                    <?= nl2br(htmlspecialchars($fetch_comment['comment'])) ?>
-                </p>
 
-                <?php if ($fetch_comment['user_id'] == $user_id) { ?>
-                <form action="" method="post" class="flex-btn">
-                    <input type="hidden" name="comment_id" value="<?= $fetch_comment['id'] ?>">
-                     <button type="submit" name="edit_comment" value="Редактировать" class="btn">Редактировать</button>
-                    <button type="submit" name="delete_comment" class="btn"
-                        onclick="return confirm('Удалить комментарий?')">Удалить</button>
-                </form>
-                <?php } ?>
-            </div>
-            <?php
+                <!-- ТЕКСТ -->
+                        <p class="comment-text">
+                            <?= nl2br(htmlspecialchars($fetch_comment['comment'])) ?>
+                        </p>
+
+                        <!-- РЕДАКТОР -->
+                        <textarea class="edit-area" style="display:none;"></textarea>
+
+                        <div class="flex-btn">
+
+                            <button type="button" class="btn edit-comment-btn" data-id="<?= $fetch_comment['id'] ?>">
+                                Редактировать
+                            </button>
+
+                            <button type="button" class="btn save-comment-btn" data-id="<?= $fetch_comment['id'] ?>"
+                                style="display:none;">
+                                Сохранить
+                            </button>
+
+                            <button type="button" class="btn cancel-comment-btn" style="display:none;">
+                                Отмена
+                            </button>
+
+                            <button type="button" class="btn delete-comment-btn" data-id="<?= $fetch_comment['id'] ?>">
+                                Удалить
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <?php
                 }
             } else {
                 echo '<p class="empty">Комментариев пока нет!</p>';
             }
             ?>
+
         </div>
 
     </Section>
@@ -385,6 +304,12 @@ if (isset($_POST['update_now'])) {
 
     <?php include 'components/user_footer.php'; ?>
     <script type="text/javascript" src="js/user_script.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/modules/user/comment-update.js"></script>
+    <script src="js/modules/user/comment-delete.js"></script>
+    <script src="js/modules/user/comment-add.js"></script>
+    <script src="js/modules/user/like.js"></script>
+
 </body>
 
 </html>

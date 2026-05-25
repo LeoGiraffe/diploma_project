@@ -64,7 +64,7 @@ if (file_exists($video_path)) {
 }
 
 
-// delete likes
+
 
 $delete_likes = $conn->prepare("
     DELETE FROM likes
@@ -74,7 +74,7 @@ $delete_likes = $conn->prepare("
 $delete_likes->execute([$delete_id]);
 
 
-// delete comments
+
 
 $delete_comments = $conn->prepare("
     DELETE FROM comments
@@ -84,7 +84,6 @@ $delete_comments = $conn->prepare("
 $delete_comments->execute([$delete_id]);
 
 
-// delete content
 
 $delete_content = $conn->prepare("
     DELETE FROM content

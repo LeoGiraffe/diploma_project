@@ -47,26 +47,7 @@ if (isset($_COOKIE['user_id'])) {
     <!-----------banner----------->
 
 
-    <div class="banner">
-        <div class="detail">
-            <div class="title">
-                <a href="index.php">Главная</a> <span><i class="bx bx-chevron-right"></i>О нас</span>
-            </div>
-            <h1>О нас</h1>
-            <p>Дистанциум — это образовательная платформа, созданная для тех, кто хочет получать актуальные знания и
-                развиваться в комфортном темпе. Мы объединяем экспертов из разных сфер, чтобы сделать качественное
-                образование доступным для каждого.</p>
-            <div class="flex-btn">
-                <a href="login.php" class="btn">Войди чтобы начать</a>
-                <a href="contact.php" class="btn">свяжитесь с нами</a>
-
-            </div>
-
-        </div>
-        <img src="image/banner.png" alt="">
-
-
-    </div>
+    
     <!-----------about----------->
 
     <div class="about">

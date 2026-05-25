@@ -96,19 +96,12 @@ $total_comments = $select_comments->fetchColumn();
             <div class="box">
                 <h3><?= $total_likes; ?></h3>
                 <p>Количество лайков</p>
-                <a href="contents.php" class="btn">Посмотреть материалы</a>
+                <a href="content.php" class="btn">Посмотреть материалы</a>
             </div>
             <div class="box">
                 <h3><?= $total_comments; ?></h3>
                 <p>Количество комментариев</p>
                 <a href="comments.php" class="btn">Посмотреть комментарии</a>
-            </div>
-            <div class="box">
-                <h3>Начать</h3>
-                <div class="flex-btn">
-                    <a href="login.php" class="btn" style="width:100px; font-size: 2rem;">Войти</a>
-                    <a href="register.php" class="btn" style="width:auto; font-size: 2rem;">Регистрация</a>
-                </div>
             </div>
         </div>
     </section>

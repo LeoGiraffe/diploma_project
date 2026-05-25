@@ -19,30 +19,6 @@ if (isset($_GET['get_id'])) {
     header('location:index.php');
 }
 
-if (isset($_POST['save_list'])) {
-    if($user_id != ''){
-        $list_id = $_POST['list_id'];
-        $list_id = htmlspecialchars($list_id, ENT_QUOTES, 'UTF-8');
-        $select_list = $conn->prepare("SELECT * FROM `bookmark` WHERE playlist_id = ? AND user_id = ?");
-
-        $select_list->execute([$list_id, $user_id]);
-
-        if ($select_list->rowCount() > 0) {
-            $remove_bookmark = $conn->prepare("DELETE FROM `bookmark` WHERE playlist_id = ? AND user_id = ?");
-            $remove_bookmark->execute([$list_id, $user_id]);
-            $message[] = 'Плейлист удален из закладок';
-
-
-        } else {
-            $insert_bookmark = $conn->prepare("INSERT INTO `bookmark`(user_id, playlist_id) VALUES(?, ?)");
-            $insert_bookmark->execute([$user_id, $list_id]);
-            $message[] = 'Плейлист добавлен в закладки';
-        }
-    } else {
-        $message[] = 'Вы не вошли в аккаунт';
-    }
-    
-}
 
 
 
@@ -72,26 +48,7 @@ if (isset($_POST['save_list'])) {
 <body>
     <?php include 'components/user_header.php'; ?>
 
-    <!-----------banner----------->
 
-
-    <div class="banner">
-        <div class="detail">
-            <div class="title">
-                <a href="index.php">Главная</a> <span><i class="bx bx-chevron-right"></i>Плейлист</span>
-            </div>
-            <h1>мой плейлист</h1>
-            <p>Собирайте любимые уроки в плейлисты и учитесь в удобном порядке. Создавайте подборки по темам,
-                возвращайтесь к сложным моментам и отслеживайте свой прогресс.</p>
-            <div class="flex-btn">
-                <a href="login.php" class="btn">Войди чтобы начать</a>
-                <a href="contact.php" class="btn">свяжитесь с нами</a>
-
-            </div>
-
-        </div>
-        <img src="image/banner.png" alt="">
-    </div>
     <!-----------playlist----------->
 
 
@@ -124,14 +81,16 @@ if (isset($_POST['save_list'])) {
                 $select_bookmark->execute([$user_id, $playlist_id]);
                 ?>
             <div class="col">
-                <form action="" method="post" class="save-list">
+                <form class="save-list">
                     <input type="hidden" name="list_id" value="<?= $playlist_id ?>">
                     <?php if ($select_bookmark->rowCount() > 0) { ?>
                     <button type="submit" name="save_list" class="save"><i class="bx bx-bookmark"></i>
                         <span>Сохранено</span></button>
                     <?php } else { ?>
-                    <button type="submit" name="save_list" class="save"><i class="bx bx-bookmark"></i>
-                        <span>Сохранить</span></button>
+                    <button type="button" class="save bookmark-btn" data-id="<?= $playlist_id ?>">
+                        <i class="bx bx-bookmark"></i>
+                        <span>Сохранить</span>
+                    </button>
                     <?php } ?>
                 </form>
                 <div class="thumb">
@@ -153,59 +112,69 @@ if (isset($_POST['save_list'])) {
                         </span>
                     </div>
                 </div>
-<div class="detail">
-    <h3><?= $fetch_playlist['title']; ?></h3>
-    <p><?= $fetch_playlist['description']; ?></p>
-    <div class="date"><i class="bx bxs-calendar-alt"></i><span><?= $fetch_playlist['date']; ?></span></div>
-</div>
+                <div class="detail">
+                    <h3>
+                        <?= $fetch_playlist['title']; ?>
+                    </h3>
+                    <p>
+                        <?= $fetch_playlist['description']; ?>
+                    </p>
+                    <div class="date"><i class="bx bxs-calendar-alt"></i><span>
+                            <?= $fetch_playlist['date']; ?>
+                        </span></div>
+                </div>
 
             </div>
             <?php
             } else {
                 echo '<p class="empty">Плейлист не найден!</p>';
             }
-            
+
             ?>
         </div>
     </section>
 
-<section class="video-container">
-    <div class="heading">
-        <h1>Видео</h1>
-    </div>
-    <div class="box-container">
-        <?php
-$select_content = $conn->prepare('SELECT * FROM `content` WHERE playlist_id = ? AND status = ? ORDER BY date DESC');
-$select_content->execute([$get_id, 'active']);
-if ($select_content->rowCount() > 0) {
-    while ($fetch_content = $select_content->fetch(PDO::FETCH_ASSOC)) {
-       
+    <section class="video-container">
+        <div class="heading">
+            <h1>Видео</h1>
+        </div>
+        <div class="box-container">
+            <?php
+            $select_content = $conn->prepare('SELECT * FROM `content` WHERE playlist_id = ? AND status = ? ORDER BY date DESC');
+            $select_content->execute([$get_id, 'active']);
+            if ($select_content->rowCount() > 0) {
+                while ($fetch_content = $select_content->fetch(PDO::FETCH_ASSOC)) {
 
 
 
 
-?>
-<a href="watch_video.php?get_id=<?= $fetch_content['id']?>" class="box">
-<i class="bx bx-play"></i>
-    <img src="uploaded_files/<?= $fetch_content['thumb']; ?>" alt="">
-    <h3><?= $fetch_content['title']; ?></h3>
-</a>
 
-<?php
-    }
-}else{
-    echo '<p class="empty">Видео не найдено!</p>';
-}
+                    ?>
+            <a href="watch_video.php?get_id=<?= $fetch_content['id'] ?>" class="box">
+                <i class="bx bx-play"></i>
+                <img src="uploaded_files/<?= $fetch_content['thumb']; ?>" alt="">
+                <h3>
+                    <?= $fetch_content['title']; ?>
+                </h3>
+            </a>
 
-?>
-    </div>
-</section>
+            <?php
+                }
+            } else {
+                echo '<p class="empty">Видео не найдено!</p>';
+            }
+
+            ?>
+        </div>
+    </section>
 
 
 
 
     <?php include 'components/user_footer.php'; ?>
     <script type="text/javascript" src="js/user_script.js"></script>
+    <script src="js/app.js"></script>> </script>
+    <script src="js/modules/user/bookmark.js"></script>
 </body>
 
 </html>

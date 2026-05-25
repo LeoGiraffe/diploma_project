@@ -1,14 +1,5 @@
 <?php
-if (isset($message)) {
-    foreach ($message as $msg) {
-        echo '
-        <div class="message">
-            <span>' . $msg . '</span>
-            <i class="bx bx-x" onclick="this.parentElement.remove();"></i>
-        </div>
-        ';
-    }
-}
+
 ?>
 <header class="header">
     <section class="flex">

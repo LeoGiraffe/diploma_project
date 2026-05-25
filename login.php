@@ -12,39 +12,11 @@ if (isset($_COOKIE['user_id'])) {
 }
 
 
-if (isset($_POST['submit'])) {
-
-    $email = $_POST['email'];
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-
-    $password = sha1($_POST['password']);
-
-    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
-    $select_user->execute([$email, $password]);
-    $row = $select_user->fetch(PDO::FETCH_ASSOC);
-
-    if ($select_user->rowCount() > 0) {
-        setcookie('user_id', $row['id'], time() + 60 * 60 * 24 * 30, '/');
-        header('location:index.php');
-    } else{
-        $message[] = 'Неправильное имя пользователя или пароль';
-    }
-
-    
-
-}
-
-
-
-
-
 
 
 
 
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -88,18 +60,21 @@ if (isset($_POST['submit'])) {
     <section class="form-container">
         <div class="heading">
             <span>Присоединяйтесь к нам</span>
-            <h1>Создать аккаунт</h1>
+            <h1>Войти</h1>
         </div>
-        <form class="login" action="" method="post" enctype="multipart/form-data">
-                    <p>email</p>
-                    <input type="email" name="email" placeholder="Введите email" maxlength="50" required class="box">
-                </div>
-                <div class="col">
-                    <p>пароль</p>
-                    <input type="password" name="password" placeholder="Введите пароль" maxlength="20" required
-                        class="box">
-            <p class="link">Еще нет аккаунта? <a href="register.php">Регистрация</a></p>
-            <input type="submit" name="submit" class="btn" value="Войти">
+        <form class="login">
+
+            <p>email</p>
+            <input type="email" name="email" placeholder="Введите email" required class="box">
+
+            <p>пароль</p>
+            <input type="password" name="password" placeholder="Введите пароль" required class="box">
+
+            <p class="link">
+                Еще нет аккаунта? <a href="register.php">Регистрация</a>
+            </p>
+
+            <input type="submit" class="btn" value="Войти">
         </form>
 
     </section>
@@ -110,6 +85,8 @@ if (isset($_POST['submit'])) {
 
     <?php include 'components/user_footer.php'; ?>
     <script type="text/javascript" src="js/user_script.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/modules/user/login.js"></script>
 </body>
 
 </html>

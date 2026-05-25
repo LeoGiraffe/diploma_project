@@ -1,69 +1,64 @@
-const deleteBtn = document.getElementById(
-    'deletePlaylistBtn'
-);
+document.querySelectorAll('.deletePlaylistBtn').forEach(btn => {
 
-if (deleteBtn) {
+    btn.addEventListener('click', async function (e) {
 
-    deleteBtn.addEventListener(
-        'click',
-        async () => {
+        e.preventDefault();
 
-            if (!confirm('Удалить плейлист?')) {
-                return;
-            }
+        if (!confirm('Удалить плейлист?')) return;
 
-            const playlistId =
-                document.querySelector(
-                    '[name="playlist_id"]'
-                ).value;
+        const playlistId = this.dataset.id;
 
-            const formData = new FormData();
+        const formData = new FormData();
+        formData.append('playlist_id', playlistId);
 
-            formData.append(
-                'playlist_id',
-                playlistId
+        try {
+
+            const response = await fetch(
+                '../ajax/playlist/delete.php',
+                {
+                    method: 'POST',
+                    body: formData
+                }
             );
 
-            try {
+            const result = await response.json();
 
-                const response =
-                    await fetch(
-                        '../ajax/playlist/delete.php',
-                        {
-                            method: 'POST',
-                            body: formData
-                        }
-                    );
+            showMessage(
+                result.message,
+                result.status
+            );
 
-                const result =
-                    await response.json();
-
-                showMessage(
-                    result.message,
-                    result.status
-                );
+            if (result.status === 'success') {
 
                 if (
-                    result.status === 'success'
+                    window.location.pathname.includes('view_playlist.php') ||
+                    window.location.pathname.includes('update_playlist.php')
                 ) {
 
                     setTimeout(() => {
-
-                        window.location.href =
-                            'playlist.php';
-
+                        window.location.href = 'playlist.php';
                     }, 1000);
+
+                    return;
+                }
+                const box = this.closest('.box');
+
+                if (box) {
+                    box.remove();
                 }
 
-            } catch (error) {
-
-                console.error(error);
-
-                showMessage(
-                    'Ошибка сервера',
-                    'error'
-                );
             }
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                'Ошибка сервера',
+                'error'
+            );
         }
-    );
-}
+
+    });
+
+});

@@ -89,7 +89,7 @@ if (isset($_GET['get_id'])) {
                         ?>
                     </select>
                     <img src="../uploaded_files/<?= $fetch_videos['thumb']; ?>">
-                    <p>Изменить ревью<span>*</span></p>
+                    <p>Изменить превью<span>*</span></p>
                     <input type="file" name="image" accept="image/*" class="box">
                     <video src="../uploaded_files/<?= $fetch_videos['video']; ?>" controls></video>
                     <p>Изменить материал<span>*</span></p>
@@ -97,9 +97,7 @@ if (isset($_GET['get_id'])) {
                     <div class="flex-btn">
                         <input type="submit" name="update" value="Обновить" class="btn">
                         <a href="view_content.php?get_id=<?= $video_id ?>" class="btn">Посмотреть</a>
-                        <button type="button" id="deleteContentBtn" class="btn">
-                            Удалить
-                        </button>
+                         <button type="button" class="btn deleteContentBtn" data-id="<?= $video_id; ?>">Удалить</button>
                     </div>
 
                 </form>

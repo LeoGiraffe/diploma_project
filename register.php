@@ -12,62 +12,6 @@ if (isset($_COOKIE['user_id'])) {
 }
 
 
-if (isset($_POST['submit'])) {
-    $id = unique_id();
-    $name = $_POST['name'];
-    $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
-
-    $email = $_POST['email'];
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-
-    $password = sha1($_POST['password']);
-
-    $cpass = sha1($_POST['cpass']);
-
-
-    $image = $_FILES['image']['name'];
-    $image = htmlspecialchars($image, ENT_QUOTES, 'UTF-8');
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    $rename = unique_id() . '.' . $ext;
-    $image_size = $_FILES['image']['size'];
-    $image_tmp_name = $_FILES['image']['tmp_name'];
-    $image_folder = 'uploaded_files/' . $rename;
-
-    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
-    $select_user->execute([$email]);
-
-
-
-    if ($select_user->rowCount() > 0) {
-        $message[] = 'Пользователь с таким email уже зарегистрирован';
-    } else {
-        if ($password != $cpass) {
-            $message[] = 'Пароли не совпадают';
-        } else {
-            if ($image_size > 2000000) {
-                $message[] = 'Размер фотографии слишком большой';
-            } else {
-
-                $insert_user = $conn->prepare("INSERT INTO `users` (id, name, email, password, image) VALUES (?, ?, ?, ?, ?)");
-                $insert_user->execute([$id, $name, $email, $password, $rename]);
-                move_uploaded_file($image_tmp_name, $image_folder);
-
-
-                $verify_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ? LIMIT 1");
-                $verify_user->execute([$email, $password]);
-                $row = $verify_user->fetch(PDO::FETCH_ASSOC);
-                if ($verify_user->rowCount() > 0) {
-                    setcookie('user_id', $row['id'], time() + 60 * 60 * 24 * 30, '/');
-                    header('location:index.php');
-                }
-            }
-        }
-    }
-
-}
-
-
-
 
 
 
@@ -123,7 +67,7 @@ if (isset($_POST['submit'])) {
             <span>Присоединяйтесь к нам</span>
             <h1>Создать аккаунт</h1>
         </div>
-        <form class="register" action="" method="post" enctype="multipart/form-data">
+        <form class="register-form" action="" method="post" enctype="multipart/form-data">
             <div class="flex">
                 <div class="col">
                     <p>имя<span>*</span></p>
@@ -154,6 +98,9 @@ if (isset($_POST['submit'])) {
 
     <?php include 'components/user_footer.php'; ?>
     <script type="text/javascript" src="js/user_script.js"></script>
+    <script src="js/app.js"></script>
+
+    <script src="js/modules/user/register.js"></script>
 </body>
 
 </html>

@@ -105,14 +105,6 @@ if (isset($_COOKIE['user_id'])) {
                                 <input type="submit" name="tutor_fetch" class="btn" value="Смотреть профиль">
                             </form>
                         </div>
-
-
-
-
-
-
-
-
                         <?php
                     }
 

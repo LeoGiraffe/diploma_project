@@ -678,6 +678,7 @@ section {
     align-items: flex-start;
     justify-content: center;
     gap: 1.5rem;
+    padding: 2rem;
 }
 
 .playlist .box-container .add,
@@ -686,12 +687,15 @@ section {
     right: -10%;
     top: -10%;
     width: 50px;
+    right: 20px;
+    top: -30px;
     height: 50px;
     border-radius: 50%;
     background-image: var(--gradient2);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 .playlist .box-container .add i,
@@ -856,6 +860,7 @@ section {
     white-space: pre-line;
 }
 
+
 .video-form {
     width: 100%;
     max-width: 50vw;
@@ -921,6 +926,9 @@ section {
 }
 
 .contents .box-container {
+    align-items: start;
+    position: relative;
+    padding-top: 3rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, 50rem);
     align-items: center;

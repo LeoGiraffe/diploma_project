@@ -75,14 +75,15 @@ if (isset($_GET['get_id'])) {
                         <button type="submit" class="btn">
                             Обновить
                         </button>
-                        <button type="button" class="btn" id="deletePlaylistBtn">
-                            Удалить
-                        </button>
+                        <button type="button" class="btn deletePlaylistBtn" data-id="<?= $playlist_id; ?>">
+                                Удалить
+                            </button>
                         <a href="view_playlist.php?get_id=<?= $playlist_id; ?>" class="btn">Открыть</a>
 
                     </div>
 
                 </form>
+                
                 <?php
             }
         } else {

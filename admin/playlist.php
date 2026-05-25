@@ -80,13 +80,21 @@ if (isset($_COOKIE['tutor_id'])) {
                         <h3 class="title"><?= htmlspecialchars($fetch_playlist['title']); ?></h3>
                         <p class="description"><?= htmlspecialchars($fetch_playlist['description']); ?></p>
 
-                        <form class="delete-playlist-form flex-btn" data-id="<?= $playlist_id; ?>">
-                            <a href="update_playlist.php?get_id=<?= $playlist_id; ?>" class="btn">Редактировать</a>
-                            <button type="submit" class="btn">
+                        <div class="flex-btn">
+
+                            <a href="update_playlist.php?get_id=<?= $playlist_id; ?>" class="btn">
+                                Редактировать
+                            </a>
+
+                            <button type="button" class="btn deletePlaylistBtn" data-id="<?= $playlist_id; ?>">
                                 Удалить
                             </button>
-                            <a href="view_playlist.php?get_id=<?= $playlist_id; ?>" class="btn">Посмотреть</a>
-                        </form>
+
+                            <a href="view_playlist.php?get_id=<?= $playlist_id; ?>" class="btn">
+                                Посмотреть
+                            </a>
+
+                        </div>
                     </div>
 
                     <?php
@@ -101,7 +109,7 @@ if (isset($_COOKIE['tutor_id'])) {
     <?php include '../components/footer.php'; ?>
     <script type="text/javascript" src="../js/admin_script.js"></script>
     <script src="../js/app.js"></script>
-<script src="../js/modules/playlist-delete.js"></script>
+    <script src="../js/modules/playlist-delete.js"></script>
 </body>
 
 </html>

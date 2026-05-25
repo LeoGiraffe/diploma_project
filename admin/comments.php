@@ -53,10 +53,9 @@ if (isset($_COOKIE['tutor_id'])) {
                                 href="view_content.php?get_id=<?= $fetch_content['id']; ?>">Посмотреть"></a>
                         </div>
                         <p class="text"><?= $fetch_comment['comment']; ?></p>
-                        <form class="delete-comment-form" data-id="<?= $fetch_comment['id']; ?>">
-
-                            <button type="submit" value="Удалить комментарий" class="btn">Удалить</button>
-                        </form>
+                        <button type="button" class="btn delete-comment-btn" data-id="<?= $fetch_comment['id']; ?>">
+                            Удалить
+                        </button>
 
                     </div>
 

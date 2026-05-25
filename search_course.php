@@ -43,9 +43,8 @@ if (isset($_COOKIE['user_id'])) {
             <h1>Результаты поиска</h1>
         </div>
         
-        <!-- Форма поиска -->
         <form action="" method="post" class="search_tutor">
-            <input type="text" name="search_course" maxlength="100" required placeholder="Поиск курса по названию" value="<?= isset($_POST['search_course']) ? htmlspecialchars($_POST['search_course']) : '' ?>">
+            <input type="text " name="search_course" maxlength="100" required placeholder="Поиск курса по названию" value="<?= isset($_POST['search_course']) ? htmlspecialchars($_POST['search_course']) : '' ?>">
             <button type="submit" name="search_course_btn" class="bx bx-search-alt-2"></button>
         </form>
 
@@ -66,7 +65,7 @@ if (isset($_COOKIE['user_id'])) {
                         $select_tutor->execute([$fetch_courses['tutor_id']]);
                         $fetch_tutor = $select_tutor->fetch(PDO::FETCH_ASSOC);
                         
-                        // Подсчет видео в плейлисте
+                    
                         $count_videos = $conn->prepare("SELECT * FROM `content` WHERE playlist_id = ?");
                         $count_videos->execute([$course_id]);
                         $total_videos = $count_videos->rowCount();

@@ -72,9 +72,7 @@ if (isset($_COOKIE['tutor_id'])) {
                             <h3 class="title"><?= $fetch_contents['title']; ?></h3>
                             <form class="delete-video-form" data-id="<?= $video_id; ?>">
                                 <a href="update_content.php?get_id=<?= $video_id; ?>" class="btn">Обновить</a>
-                                <button type="submit" class="btn">
-                                    Удалить
-                                </button>
+                                 <button type="button" class="btn deleteContentBtn" data-id="<?= $video_id; ?>">Удалить</button>
                                 <a href="view_content.php?get_id=<?= $video_id; ?>" class="btn">Посмотреть</a>
                             </form>
 

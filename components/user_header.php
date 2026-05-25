@@ -1,21 +1,12 @@
 <?php
-if (isset($message)) {
-    foreach ($message as $msg) {
-        echo '
-        <div class="message">
-            <span>' . $msg . '</span>
-            <i class="bx bx-x" onclick="this.parentElement.remove();"></i>
-        </div>
-        ';
-    }
-}
+
 ?>
 
 
 
 <header class="header">
     <section class="flex">
-        <a href="home.php"><img src="image/logo.png" alt="130px"></a>
+        <a href="index.php"><img src="image/logo.png" alt="130px"></a>
         <nav class="navbar">
             <a href="index.php"><span>Главная</span></a>
             <a href="about.php"><span>О нас</span></a>
@@ -46,7 +37,7 @@ if (isset($message)) {
                 <span>Ученик</span><br>
 
                 <div class="flex-btn">
-                <a href="profile.php" class="btn">Посмтотреть профиль</a>
+                <a href="profile.php" class="btn">Профиль</a>
                 <a href="components/user_logout.php" onclick="return confirm('Выйти из этого аккаунта?');"
                     class="btn">Выйти</a>
                     </div>
