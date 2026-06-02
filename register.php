@@ -85,7 +85,7 @@ if (isset($_COOKIE['user_id'])) {
                 </div>
             </div>
             <p>Выберите фотографию<span>*</span></p>
-            <input type="file" name="image" accept="image/*" required class="box">
+            <input type="file" name="image" accept="image/*" required class="box" class="choose_photo">
             <p class="link">Уже зарегестрированы? <a href="login.php">Войти</a></p>
             <input type="submit" name="submit" class="btn" value="зарегистрируйтесь">
         </form>

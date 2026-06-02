@@ -49,8 +49,8 @@ if (isset($_COOKIE['tutor_id'])) {
                         echo 'order: -1';
                     } ?>">
                         <div class="content"><span><?= $fetch_comment['date']; ?></span>
-                            <p>- <?= $fetch_content['title']; ?> -</p><a
-                                href="view_content.php?get_id=<?= $fetch_content['id']; ?>">Посмотреть"></a>
+                            <p><?= $fetch_content['title']; ?></p><a
+                                href="view_content.php?get_id=<?= $fetch_content['id']; ?>">Посмотреть</a>
                         </div>
                         <p class="text"><?= $fetch_comment['comment']; ?></p>
                         <button type="button" class="btn delete-comment-btn" data-id="<?= $fetch_comment['id']; ?>">

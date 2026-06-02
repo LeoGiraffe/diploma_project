@@ -123,18 +123,18 @@ $insert_tutor->execute([
 ]);
 
 
-// upload image
 
 move_uploaded_file(
     $image_tmp_name,
     $image_folder
 );
 
+setcookie('tutor_id', $id, time() + 60*60*24*30, '/');
 
 echo json_encode([
     'status' => 'success',
     'message' => 'Регистрация успешна',
-    'redirect' => 'login.php'
+    'redirect' => 'dashboard.php'
 ]);
 
 exit;

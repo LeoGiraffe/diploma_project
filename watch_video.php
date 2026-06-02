@@ -67,52 +67,12 @@ if (isset($_GET['get_id'])) {
     </div>
 
     <!-----------edit section----------->
-    <?php
-    if (isset($_POST['edit_comment'])) {
-        $edit_id = $_POST['comment_id'];
-        $edit_id = htmlspecialchars($edit_id, ENT_QUOTES, 'UTF-8');
-
-        $verify_comment = $conn->prepare("SELECT * FROM `comments` WHERE id = ? ");
-        $verify_comment->execute([$edit_id]);
-
-
-        if ($verify_comment->rowCount() > 0) {
-            $fetch_edit_comment = $verify_comment->fetch(PDO::FETCH_ASSOC);
-            ?>
-
-    <section class="edit_comment">
-        <div class="heading">
-            <h1>Редактировать комментарий</h1>
-        </div>
-        <form action="" method="post">
-            <input type="hidden" name="update_id" value="<?= $fetch_edit_comment['id'] ?>">
-            <textarea name="update_box" class="box" maxlength="1000" required cols="30 rows"
-                10><?= $fetch_edit_comment['comment'] ?></textarea>
-
-            <div class="flex-btn">
-                <a href="watch_video.php?get_id=<?= $get_id; ?>" class="btn">Не редактировать</a>
-                <input type="submit" name="update_now" class="btn" value="Сохранить">
-            </div>
-        </form>
-
-    </section>
+   
 
 
 
 
 
-
-
-
-    <?php
-        }
-
-    } else {
-        $message[] = 'Комментарий не найден';
-    }
-
-
-    ?>
 
 
     <!-----------video----------->
@@ -268,26 +228,28 @@ if (isset($_GET['get_id'])) {
                         <!-- РЕДАКТОР -->
                         <textarea class="edit-area" style="display:none;"></textarea>
 
-                        <div class="flex-btn">
+                        <?php if ($fetch_comment['user_id'] == $user_id) { ?>
+                            <div class="flex-btn">
 
-                            <button type="button" class="btn edit-comment-btn" data-id="<?= $fetch_comment['id'] ?>">
-                                Редактировать
-                            </button>
+                                <button type="button" class="btn edit-comment-btn" data-id="<?= $fetch_comment['id'] ?>">
+                                    Редактировать
+                                </button>
 
-                            <button type="button" class="btn save-comment-btn" data-id="<?= $fetch_comment['id'] ?>"
-                                style="display:none;">
-                                Сохранить
-                            </button>
+                                <button type="button" class="btn save-comment-btn" data-id="<?= $fetch_comment['id'] ?>"
+                                    style="display:none;">
+                                    Сохранить
+                                </button>
 
-                            <button type="button" class="btn cancel-comment-btn" style="display:none;">
-                                Отмена
-                            </button>
+                                <button type="button" class="btn cancel-comment-btn" style="display:none;">
+                                    Отмена
+                                </button>
 
-                            <button type="button" class="btn delete-comment-btn" data-id="<?= $fetch_comment['id'] ?>">
-                                Удалить
-                            </button>
+                                <button type="button" class="btn delete-comment-btn" data-id="<?= $fetch_comment['id'] ?>">
+                                    Удалить
+                                </button>
 
-                        </div>
+                            </div>
+                        <?php } ?>
                     </div>
 
                     <?php

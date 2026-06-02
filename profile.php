@@ -57,23 +57,7 @@ $bookmarks = $select_bookmarks->rowCount();
     <!-----------banner----------->
 
 
-    <div class="banner">
-        <div class="detail">
-            <div class="title">
-                <a href="index.php">Главная</a> <span><i class="bx bx-chevron-right"></i>Профиль</span>
-            </div>
-            <h1>Профиль</h1>
-            <p>Войдите в свой аккаунт, чтобы продолжить обучение. Здесь вас ждут ваши курсы, прогресс и личные
-                сообщения.</p>
-            <div class="flex-btn">
-                <a href="login.php" class="btn">Войди чтобы начать</a>
-                <a href="contact.php" class="btn">свяжитесь с нами</a>
 
-            </div>
-
-        </div>
-        <img src="image/banner.png" alt="">
-    </div>
   
     <section class="profile">
 <div class="head">

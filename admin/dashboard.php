@@ -16,14 +16,9 @@ $select_contents = $conn->prepare("
 ");
 
 $select_contents->execute([$tutor_id]);
-
-$select_contents = $conn->prepare("
-    SELECT COUNT(*) 
-    FROM content 
-    WHERE tutor_id = ?
-");
-$total_contents = $select_contents->rowCount();
 $total_contents = $select_contents->fetchColumn();
+
+
 
 $select_playlists = $conn->prepare("
     SELECT COUNT(*)

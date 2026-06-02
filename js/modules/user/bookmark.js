@@ -9,7 +9,7 @@ console.log('bookmark js loaded');
         formData.append('list_id', id);
 
         try {
-            const res = await fetch('/Online_education/ajax/bookmark/toggle.php', {
+            const res = await fetch('ajax/bookmark/toggle.php', {
                 method: 'POST',
                 body: formData
             });

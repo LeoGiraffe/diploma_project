@@ -57,21 +57,6 @@ if (isset($_POST['remove'])) {
 <body>
     <?php include 'components/user_header.php'; ?>
 
-    <!-- Banner -->
-    <div class="banner">
-        <div class="detail">
-            <div class="title">
-                <a href="index.php">Главная</a>
-                <span><i class="bx bx-chevron-right"></i>Понравившиеся</span>
-            </div>
-            <h1>Понравившиеся</h1>
-            <p>Видео, которые вам понравились. Сохраняйте и возвращайтесь к ним в любое время.</p>
-            <div class="flex-btn">
-                <a href="contact.php" class="btn">Свяжитесь с нами</a>
-            </div>
-        </div>
-        <img src="image/banner.png" alt="">
-    </div>
 
     <section class="liked-videos">
         <div class="heading">

@@ -16,7 +16,7 @@
 
         </nav>
         <form action="search_course.php" method="post" class="search-form">
-            <input type="text" name="search_course" placeholder="Поиск" required maxlength="100">
+            <input type="text" name="search_course" placeholder="Поиск курсов" required maxlength="100">
             <button type="submit" name="search_course_btn" class="bx bx-search-alt-2"></button>
         </form>
         <div class="icons">

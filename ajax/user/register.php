@@ -27,7 +27,6 @@ $image_size = $_FILES['image']['size'];
 $tmp = $_FILES['image']['tmp_name'];
 $folder = '../../uploaded_files/' . $rename;
 
-// проверка email
 $select = $conn->prepare("SELECT id FROM users WHERE email = ?");
 $select->execute([$email]);
 
@@ -39,7 +38,6 @@ if ($select->rowCount() > 0) {
     exit;
 }
 
-// проверка пароля
 if ($password !== $cpass) {
     echo json_encode([
         'status' => 'error',
@@ -57,7 +55,6 @@ if ($image_size > 2000000) {
     exit;
 }
 
-// insert
 $insert = $conn->prepare("
     INSERT INTO users (id, name, email, password, image)
     VALUES (?, ?, ?, ?, ?)
@@ -66,7 +63,6 @@ $insert->execute([$id, $name, $email, $password, $rename]);
 
 move_uploaded_file($tmp, $folder);
 
-// auto login cookie
 setcookie('user_id', $id, time() + 60*60*24*30, '/');
 
 echo json_encode([

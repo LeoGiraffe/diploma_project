@@ -2,7 +2,7 @@
     <div class="content">
         <span>Получайте свежие новости от Дистанциум</span>
         <h1>Подпишитесь на рассылку</h1>
-        <p>Lorem ipsum dolor sit amet...</p>
+        <p>Подпишитесь и получайте только важные новости</p>
         <div class="input-field">
             <input type="email" placeholder="Введите email">
             <button class="btn">Подписаться</button>
@@ -61,7 +61,7 @@
         </div>
     </div>
     <div class="bottom">
-        <p>© 2023 Дистанциум. Все права защищены.</p>
+        <p>© 2026 Дистанциум. Все права защищены.</p>
         <a href="admin/register.php">Стать преподователем</a>
     </div>
 </footer>

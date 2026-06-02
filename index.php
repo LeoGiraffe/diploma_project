@@ -62,10 +62,8 @@ $total_bookmarks = $select_bookmarks->rowCount();
             </div>
             <div class="box">
                 <h1>Строй фундамент навыков — возводи карьеру</h1>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit explicabo neque iste dolorem aut
-                    quos itaque non laudantium nemo sapiente!
-
-                </p>
+                <p>Никаких скучных лекций и жёстких графиков. Только практичные видеоуроки, которые можно смотреть в
+                    любое время и в любом месте.</p>
                 <a href="courses.php" class="btn">Начать обучение</a>
             </div>
         </div>
@@ -125,23 +123,24 @@ $total_bookmarks = $select_bookmarks->rowCount();
     <div class="icon-section">
         <div class="box">
             <img src="image/icons-01.png">
-            <h3>Бесплатные курсы</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+            <h3>Учись когда хочешь</h3>
+            <p>Никакого жёсткого расписания. Смотрите уроки утром, вечером или в выходные — выбирайте удобное время.</p>
         </div>
         <div class="box">
             <img src="image/icons-02.png">
-            <h3>Бесплатные курсы</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+            <h3>Учись откуда хочешь</h3>
+            <p>Достаточно ноутбука или смартфона — занимайтесь дома, в кафе или в путешествии.</p>
         </div>
+
         <div class="box">
             <img src="image/icons-03.png">
-            <h3>Бесплатные курсы</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+            <h3>Учись в своём темпе</h3>
+            <p>Проходите материал так быстро или медленно, как вам нужно. Без гонки за группой.</p>
         </div>
         <div class="box">
             <img src="image/icons-04.png">
-            <h3>Бесплатные курсы</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+            <h3>Доступ навсегда</h3>
+            <p>Купил один раз — пользуйся всегда. Возвращайтесь к урокам в любое время без доплат.</p>
         </div>
     </div>
     <!-------------------------courses---------------->
@@ -292,7 +291,7 @@ $total_bookmarks = $select_bookmarks->rowCount();
     <!-------------------------about us---------------->
 
     <div class="about-us">
-        <siv class="box-container">
+        <div class="box-container">
             <div class="box">
                 <img src="image/about (2).png">
             </div>
@@ -300,91 +299,91 @@ $total_bookmarks = $select_bookmarks->rowCount();
                 <div class="heading">
                     <span>Лучшие возможности</span>
                     <h1>Все что вам нужно для успеха</h1>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt aut qui quaerat tempore
-                        delectus, numquam expedita ipsam quam debitis saepe.</p>
+                    <p>Открывайте новые горизонты с нашими онлайн-курсами. Учитесь из любой точки мира в удобное время,
+                        общайтесь с экспертами и получайте востребованные навыки для карьерного роста.</p>
                     <a href="about.php" class="btn"> Узнай о нас больше</a>
                 </div>
             </div>
-        </siv>
+        </div>
 
     </div>
 
     <!-------------------------teacher section---------------->
-<div class="teacher-section">
-    <div class="heading">
-        <span>Наши лучшие преподаватели</span>
-        <h1>Которые вдохновляют</h1>
-    </div>
-    
-    <div class="teacher-tabs">
-        <img src="image/team-01.jpg" class="tab-item active" data-target="team-01">
-        <img src="image/team-02.jpg" class="tab-item" data-target="team-02">
-        <img src="image/team-03.jpg" class="tab-item" data-target="team-03">
-        <img src="image/team-04.jpg" class="tab-item" data-target="team-04">
-        <img src="image/team-05.jpg" class="tab-item" data-target="team-05">
-        <img src="image/team-06.jpg" class="tab-item" data-target="team-06">
-    </div>
+    <div class="teacher-section">
+        <div class="heading">
+            <span>Наши лучшие преподаватели</span>
+            <h1>Которые вдохновляют</h1>
+        </div>
 
-    <div class="tab-content active" id="team-01">
-        <img src="image/team-01.jpg">
-        <div class="detail">
-            <h2>Мария Ивановна</h2>
-            <span>Ведущий преподаватель курсов</span>
-            <p><i class="bx bx-briefcase"></i> Техлид в Яндекс.Практикум</p>
-            <p>Опыт разработки 10 лет. Обучила 5000+ студентов</p>
+        <div class="teacher-tabs">
+            <img src="image/team-01.jpg" class="tab-item active" data-target="team-01">
+            <img src="image/team-02.jpg" class="tab-item" data-target="team-02">
+            <img src="image/team-03.jpg" class="tab-item" data-target="team-03">
+            <img src="image/team-04.jpg" class="tab-item" data-target="team-04">
+            <img src="image/team-05.jpg" class="tab-item" data-target="team-05">
+            <img src="image/team-06.jpg" class="tab-item" data-target="team-06">
+        </div>
+
+        <div class="tab-content active" id="team-01">
+            <img src="image/team-01.jpg">
+            <div class="detail">
+                <h2>Мария Ивановна</h2>
+                <span>Ведущий преподаватель курсов</span>
+                <p><i class="bx bx-briefcase"></i> Техлид в Яндекс.Практикум</p>
+                <p>Опыт разработки 10 лет. Обучила 5000+ студентов</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="team-02">
+            <img src="image/team-02.jpg">
+            <div class="detail">
+                <h2>Анна Сергеевна</h2>
+                <span>Ведущий преподаватель дизайна</span>
+                <p><i class="bx bx-palette"></i> Арт-директор в крупном digital-агентстве</p>
+                <p>Опыт 8 лет. Обучила 1500+ студентов основам UI/UX и графического дизайна</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="team-03">
+            <img src="image/team-03.jpg">
+            <div class="detail">
+                <h2>Екатерина Дмитриевна</h2>
+                <span>Эксперт по экономике и финансам</span>
+                <p><i class="bx bx-line-chart"></i> Финансовый аналитик с 12-летним стажем</p>
+                <p>Помогает разобраться в макроэкономике, инвестициях и управлении капиталом</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="team-04">
+            <img src="image/team-04.jpg">
+            <div class="detail">
+                <h2>Ольга Владимировна</h2>
+                <span>Старший преподаватель маркетинга</span>
+                <p><i class="bx bx-megaphone"></i> Head of Marketing в международной компании</p>
+                <p>10 лет в digital-маркетинге. Обучает SMM, SEO, контекстной рекламе и стратегиям продвижения</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="team-05">
+            <img src="image/team-05.jpg">
+            <div class="detail">
+                <h2>Дмитрий Сергеевич</h2>
+                <span>Коуч и психолог</span>
+                <p><i class="bx bx-brain"></i> Сертифицированный специалист по личностному росту</p>
+                <p>Помогает раскрыть потенциал, развить эмоциональный интеллект и достичь целей</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="team-06">
+            <img src="image/team-06.jpg">
+            <div class="detail">
+                <h2>Максим Андреевич</h2>
+                <span>Специалист по данным</span>
+                <p><i class="bx bx-data"></i> Data Scientist в Ozon</p>
+                <p>Обучает работе с большими данными, SQL, Python для анализа</p>
+            </div>
         </div>
     </div>
-
-    <div class="tab-content" id="team-02">
-        <img src="image/team-02.jpg">
-        <div class="detail">
-            <h2>Анна Сергеевна</h2>
-            <span>Ведущий преподаватель дизайна</span>
-            <p><i class="bx bx-palette"></i> Арт-директор в крупном digital-агентстве</p>
-            <p>Опыт 8 лет. Обучила 1500+ студентов основам UI/UX и графического дизайна</p>
-        </div>
-    </div>
-
-    <div class="tab-content" id="team-03">
-        <img src="image/team-03.jpg">
-        <div class="detail">
-            <h2>Екатерина Дмитриевна</h2>
-            <span>Эксперт по экономике и финансам</span>
-            <p><i class="bx bx-line-chart"></i> Финансовый аналитик с 12-летним стажем</p>
-            <p>Помогает разобраться в макроэкономике, инвестициях и управлении капиталом</p>
-        </div>
-    </div>
-
-    <div class="tab-content" id="team-04">
-        <img src="image/team-04.jpg">
-        <div class="detail">
-            <h2>Ольга Владимировна</h2>
-            <span>Старший преподаватель маркетинга</span>
-            <p><i class="bx bx-megaphone"></i> Head of Marketing в международной компании</p>
-            <p>10 лет в digital-маркетинге. Обучает SMM, SEO, контекстной рекламе и стратегиям продвижения</p>
-        </div>
-    </div>
-
-    <div class="tab-content" id="team-05">
-        <img src="image/team-05.jpg">
-        <div class="detail">
-            <h2>Дмитрий Сергеевич</h2>
-            <span>Коуч и психолог</span>
-            <p><i class="bx bx-brain"></i> Сертифицированный специалист по личностному росту</p>
-            <p>Помогает раскрыть потенциал, развить эмоциональный интеллект и достичь целей</p>
-        </div>
-    </div>
-
-    <div class="tab-content" id="team-06">
-        <img src="image/team-06.jpg">
-        <div class="detail">
-            <h2>Максим Андреевич</h2>
-            <span>Специалист по данным</span>
-            <p><i class="bx bx-data"></i> Data Scientist в Ozon</p>
-            <p>Обучает работе с большими данными, SQL, Python для анализа</p>
-        </div>
-    </div>
-</div>
 
 
     <section class="home">

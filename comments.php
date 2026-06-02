@@ -37,28 +37,6 @@ if (isset($_COOKIE['user_id'])) {
     <!-----------banner----------->
 
 
-    <div class="banner">
-        <div class="detail">
-            <div class="title">
-                <a href="index.php">Главная</a> <span><i class="bx bx-chevron-right"></i>Комментарии</span>
-            </div>
-            <h1>Твои комментарии</h1>
-            <p>Здесь собраны все ваши комментарии к урокам и курсам. Редактируйте, удаляйте или просто просматривайте
-                свою активность в любое время.</p>
-            <div class="flex-btn">
-                <a href="login.php" class="btn">Войди чтобы начать</a>
-                <a href="contact.php" class="btn">свяжитесь с нами</a>
-
-            </div>
-
-        </div>
-        <img src="image/banner.png" alt="">
-    </div>
-
-
-
-
-
     <!-----------comments----------->
 
     <Section class="comments">

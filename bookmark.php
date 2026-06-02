@@ -22,21 +22,6 @@ if (isset($_COOKIE['user_id'])) {
 <body>
     <?php include 'components/user_header.php'; ?>
 
-    <!-- Banner -->
-    <div class="banner">
-        <div class="detail">
-            <div class="title">
-                <a href="index.php">Главная</a> 
-                <span><i class="bx bx-chevron-right"></i>Избранное</span>
-            </div>
-            <h1>Избранное</h1>
-            <p>Войдите в свой аккаунт, чтобы продолжить обучение. Здесь вас ждут ваши курсы, прогресс и личные сообщения.</p>
-            <div class="flex-btn">
-                <a href="contact.php" class="btn">Свяжитесь с нами</a>
-            </div>
-        </div>
-        <img src="image/banner.png" alt="">
-    </div>
 
     <section class="courses">
         <div class="heading">
